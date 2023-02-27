@@ -4,7 +4,6 @@
 <head>
   <link rel="stylesheet" href="./css/styles.css">
   <title>The Homepage of Nicholas Hayes </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="nicholas hayes">
     <meta name="description" content="The personal website of Nicholas Hayes">
     <meta charset="UTF-8">
@@ -13,7 +12,7 @@
 </head>
 
   
-<body>
+<body onload="typeWriter('Nicholas Hayes')">
   <header class="hero">
     <div class="fade-background"></div>
     <nav class="navbar">
@@ -27,22 +26,11 @@
         <li class="nav-item"><a href="publications.html">Publications</a></li>
         <li class="nav-item">|</li>
         <li class="nav-item"><a href="images/nicholas_hayes_resume.pdf" target="_blank">Resume/CV</a></li>
-        
       </ul>
     </nav>
-      <div class="title">
-        <a href="index.html">Nicholas Hayes</a>
-
-      </div>
-      <div class="flexbox tab_title">
-        <div>
-          <h1><br></h1>
-        </div>
-        <div class="arrow-container">
-          <img src="https://cdn2.hubspot.net/hubfs/1951013/arrow-down-sign-to-navigate.svg?t=1532135560705" class="arrow" alt="arrow" onclick="scrollWindow('footer')">
-        </div>
-      </div>
-    
+    <div class="title" id="title">
+      <a href="index.html" id="homename"></a>
+    </div>
   </header>
   <footer>
     <p class="footer-item">&copy2023|nickphayes|</p>
