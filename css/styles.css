@@ -104,39 +104,35 @@ nav {
 }
 
 header .title {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+    /* code for function as container */
+    
+    /* for position and size of container */
     position: absolute;
+    height: 100%; 
+    width: 100%; 
+    
+    /* for style of font for typewriter */
     letter-spacing: 10px;
     font-size: 26px;
     overflow: visible;
-    white-space: nowrap;
-    z-index: 3; 
-    width: 100%; 
-    top: 40%; 
-    /* animation: 
-    typing 5s steps(45, end) forwards,
-    blink 1.6s steps(1, end) forwards;  */
+    white-space: nowrap; 
+
 }
 
-.title a{
+#homename {
     text-decoration: none;
     color: white; 
+    position: absolute; 
+    top: 40%; 
+    left: 50%; 
+    transform: translate(-50%, 0); 
+    transition: 1.6s ease; 
+
+    z-index: 3; 
 }
 
 .title a:hover {
     color:black;
-}
-
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-
-@keyframes blink {
-    from { border-color: white }
-    to { border-color: transparent; }
 }
 
 h1 {

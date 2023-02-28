@@ -1,5 +1,5 @@
 
-// making arrow fade in and out
+// making arrow fade in and out on scroll
 
 $(window).scroll(function() {
     if ($(this).scrollTop()> 5) {
@@ -11,6 +11,7 @@ $(window).scroll(function() {
  });
 
 // setting smooth scrolling on click event
+// takes in target item as selection
 function scrollWindow(selection){
     document.querySelector(selection).scrollIntoView({ 
         behavior: 'smooth',
@@ -18,30 +19,31 @@ function scrollWindow(selection){
       });
 }
 
-// typewriter function
+// typewriter function for title page
 var i = 0 ; 
-function typeWriter(text, moveToTopLeft) {
-    if (i < text.length) {
-      document.getElementById("homename").textContent += text.charAt(i);
-      i++;
-      setTimeout(function() {
-        typeWriter(text, moveToTopLeft)
-      }, 100);
-    } else if (typeof moveToTopLeft == "function") {
-      setTimeout(moveToTopLeft, 0);
-    }
+var speed = 100; // typing speed in ms
+var txt = 'Nicholas Hayes'; 
+var target = document.getElementById('homename'); 
+
+function typeWriterTitle() {
+  if (i < txt.length){
+    target.innerHTML += txt.charAt(i);
+    i ++;
+    setTimeout(typeWriterTitle, 100);
   }
-  
-// moving title container from center to top left
-
-function moveToTopLeft() {
-    var div = document.querySelector(".title a");
-    div.style.position = "absolute";
-    div.style.left = "0";
-    div.style.top = "0";
+  else {
+    setTimeout(moveDiv, 1000);
   }
-  
-//STOPPING POINT: FIXING MOVING HOMENAME
+}
 
+//moving title div function
+//triggered by previous function call
+//using target variable previously defined in above function
 
-
+function moveDiv() {
+  target.style.top = '0'; 
+  target.style.left = '0'; 
+  target.style.transform = 'translate(0,0)'; 
+  target.style.marginTop = '7%'; 
+  target.style.marginLeft = '1em'; 
+}
