@@ -330,6 +330,11 @@ footer {
   font-size: 8px;  
 }
 
+.experience {
+  display: flex; 
+  justify-content: center;
+}
+
 @media only screen and (max-width: 768px) {
   .header-about {
     background-size: auto, auto; 
