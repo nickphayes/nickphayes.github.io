@@ -40,25 +40,32 @@ header {
   display: flex; 
   justify-content: center;
   align-items: center;
-  height : 100vh; 
-  width: 100vw;
   transition: 1.6s ease; 
+  position: absolute; 
+  top: 40%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 #homename {
   color: white; 
-  font-size: 26px;
+  font-size: 30px;
   letter-spacing: 10px;
-
+  padding-top: 0.5em; 
+  transition: font-size 1.6s ease, letter-spacing 1.6s ease; 
 }
 
 #homename:hover {
-  color: black; 
+  color: grey; 
 }
 
-/* start styling navigation bar */
+/* end styling title */
+
+/* styling navigation bar */
 .nav-bar {
-  padding-top: 1em; 
+  padding-top: 5em; 
+  padding-right: 1em; 
 }
 
 .nav-menu {
@@ -69,6 +76,8 @@ header {
 
 .nav-item {
   list-style: none;
+  display: flex; 
+  color: white; 
   padding-left: 1em; 
   padding-right: 1em; 
 }
@@ -97,12 +106,22 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
+  
+  .nav-bar {
+    padding-right: 0; 
+  }
+
+  .sep {
+    display: none; 
+  }
+
   .nav-menu {
     position: fixed;
     left: -100%;
     top: 5rem;
     flex-direction: column;
     background-color: grey;
+    opacity: 75%;
     width: 100%;
     text-align: center;
     transition: 0.3s;
@@ -110,10 +129,15 @@ header {
 
   .nav-menu.active {
       left: 0;
+      top: 7rem; 
+      border-color: black; 
+      border-width: 2px; 
+      border-style: solid; 
   }
 
   .nav-item {
-      margin: 2.5rem 0;
+      padding: 2rem 1rem;
+      border-radius: 10px; 
   }
   .nav-item a {
     color: white; 
@@ -140,6 +164,109 @@ header {
 
 /* end styling navigation bar */
 
+/* styling fading background */
+
+.fade-background {
+  position: absolute; 
+  background-color: black; 
+  width: 100vw; 
+  height: 100vh; 
+  opacity: 1; 
+  transition: opacity 2s ease; 
+}
+
+/* end styling fading background */
+
+/* styling footer */
+
+footer {
+  background-color: rgb(36, 34, 34);
+  height: 100px; 
+  color: rgb(116, 105, 105);
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-item {
+  padding-top: 0px; 
+  font-size: 24px;
+  padding-bottom: 0px; 
+}
+
+.info-logo{
+  height: 28px; 
+}
+
+/* end styling footer */
+
+/* STYLING ABOUT PAGE */
+
+/* styling header */
+.header-about {
+  height: 11em; 
+  background-image: url('../images/background.jpeg');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+}
+
+.spacer {
+  background-color: grey;
+  height: 1em; 
+}
+
+/* styling content */
+.bio-container{
+  height: 75vh;
+  display: flex; 
+  justify-content: center;
+}
+
+.headshot {
+  max-width: 80%;
+  border: 10px solid #d2d2d2;
+
+}
+
+.headshot-container {
+  width: 50%; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.bio-description{
+  width: 50%; 
+}
+
+.bio-description h1{
+  text-align: center; 
+  padding-top: 0.5em; 
+}
+
+.bio-description p{
+  text-align: center;
+  padding-top: 1em; 
+  padding-left: 1em; 
+  padding-right: 1em; 
+}
 
 
+@media only screen and (max-width: 768px) {
+  .bio-container{
+    display: flex; 
+    flex-direction: column; 
+  }
 
+  .headshot {
+    max-width: 50%; 
+  }
+
+  .headshot-container {
+    width: 100%;
+  }
+  .bio-description {
+    width: 100%; 
+  }
+
+}

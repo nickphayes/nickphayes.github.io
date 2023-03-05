@@ -8,7 +8,6 @@ hamburger.addEventListener("click", mobileMenu);
 function mobileMenu() {
     hamburger.classList.toggle("active");
     navMenu.classList.toggle("active");
-
 }
 
 const navLink = document.querySelectorAll(".nav-link");
@@ -33,7 +32,7 @@ function typeWriterTitle() {
     setTimeout(typeWriterTitle, 100);
   }
   else {
-    setTimeout(moveDiv, 1000);
+    setTimeout(moveDiv, 750);
   }
 }
 
@@ -44,8 +43,22 @@ function typeWriterTitle() {
 var targetDiv = document.getElementById('nametitle');
 
 function moveDiv() {
-    // stopping point: gradually moving title name to top left
-    //not sure why, but transition attribute in CSS not working
-    // might have to play with child div to get to work
-    // or just change container flexbox
+    targetDiv.style.top = '1em'; 
+    targetDiv.style.left = '1em'; 
+    targetDiv.style.transform = 'translate(0,0)'; 
+    target.style.fontSize = '12px';
+    target.style.letterSpacing = '3px';
+    setTimeout(fadeBackground, 0)
+}
+
+//function for fading background on home screen
+//triggered by previous function call
+
+var fader = document.getElementById('fade-background');
+
+function fadeBackground() {
+    fader.style.opacity = '0';
+    setTimeout(function(){
+        fader.style.zIndex = '-1';
+    }, 2000)
 }
