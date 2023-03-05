@@ -204,7 +204,7 @@ footer {
 
 /* styling header */
 .header-about {
-  height: 11em; 
+  height: 100vh; 
   background-image: url('../images/background.jpeg');
   background-size: cover; 
   background-repeat: no-repeat; 
@@ -218,19 +218,22 @@ footer {
 /* styling content */
 .content {
   background-image: url("../images/content.jpg");
+  background-size: cover; 
   color: white; 
 }
 
 .bio-container{
-  height: 75vh;
+  height: auto;
   display: flex; 
   justify-content: center;
+  padding-top: 1rem; 
+  padding-bottom: 1rem; 
 }
+
 
 .headshot {
   max-width: 66%;
   border: 10px solid #d2d2d2;
-
 }
 
 .headshot-container {
@@ -259,23 +262,39 @@ footer {
   padding-right: 1em; 
 }
 
-.bio-details {
-  width: 100%;
+.education {
   display: flex; 
   flex-direction: column; 
-  padding-left: 30%; 
-  padding-right: 30%; 
-  align-items: flex-start; 
-
+  justify-content: flex-start; 
+  width: 100%; 
 }
 
-.bio-details p {
-  padding-left: 0; 
-}
-
-.bio-details sub{
-  font-size: 0.5em; 
+.education h1 {
   text-align: center; 
+}
+
+.education p{
+  padding-left: 1em; 
+}
+
+.bookshelf {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  width: 100%;  
+}
+
+.bookshelf h1{
+  text-align: center; 
+}
+
+.bookshelf sub{
+  text-align: center;
+  font-size: 8px;  
+}
+
+.bookshelf p{
+  padding-left: 1em;  
 }
 
 @media only screen and (max-width: 768px) {
