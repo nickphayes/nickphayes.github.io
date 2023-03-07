@@ -322,7 +322,7 @@ footer {
 }
 
 .education p{
-  padding-left: 1em; 
+  padding-left: 1rem; 
 }
 
 .education sub{
@@ -333,6 +333,35 @@ footer {
 .experience {
   display: flex; 
   justify-content: center;
+}
+
+.xp-logos {
+  display: flex; 
+  align-items: center;
+  background-color: grey;
+  padding-top: 0.5em; 
+  padding-bottom: 0.5em; 
+  width: auto;
+  border-radius: 10px; 
+  position: relative; 
+  margin-right: 10%; 
+  margin-left: 10%; 
+}
+
+.xp-logo {
+  max-height: 4em;
+  max-width: 10em; 
+}
+
+.xp-list-container {
+  display: flex; 
+  justify-content: center;
+  text-align: center; 
+  margin-top: 0.3em; 
+  margin-bottom: 1em; 
+  font-size: 0.75rem; 
+  margin-left: 10%; 
+  margin-right: 10%; 
 }
 
 @media only screen and (max-width: 768px) {
@@ -354,6 +383,14 @@ footer {
   }
   .bio-description {
     width: 100%; 
+  }
+
+  .xp-logos{
+    flex-direction: column;
+  }
+  
+  .xp-logos p{
+    padding-left: 0; 
   }
 
 }
