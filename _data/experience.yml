@@ -1,0 +1,51 @@
+- company: "Center for Advanced Defense Studies"
+  title: "Data Scientist"
+  description: >
+    Hired as an intern and then contract data scientist.
+    Became a swiss-army knife for ML, NLP, and web-scraping tasks. 
+    Worked broadly on anti-trafficking and lead generation. Highlights include
+    building a geolocation pipeline for Vietnamese addresses (anti-pangolin trafficking), 
+    finetuning an object recognition model with synthetic aperture radar data, 
+    automating an analysis of political speeches in Mandarin, and fighting with Selenium. 
+  tech_stack: "Python, AWS -> GCP"
+
+- company: "NOAA Northeast Fisheries Science Center"
+  title: "Machine Learning Research Intern"
+  description: >
+    Created a classification model for 9 cetacean species in the Western North Atlantic 
+    using passive acoustic recordings. Spent my mornings listening to dolphin clicks and
+    starting at spectograms until my eyes hurt, spent my afternoons playing with 
+    random forest models. Learned how to identify Risso's dolphin by ear. 
+  tech_stack: "PAMGuard, R"
+
+- company: "Respond Crises Translations"
+  title: "Swahili Translator"
+  description: >
+    Translated an 85 page legal document from English to Swahili for Lawyers without Borders. 
+    Ongoing pro-bono translations as needed.  
+
+- company: "US Department of State"
+  title: "Data Science Intern"
+  description: >
+    Built an annotated dataset of research papers for downstream summarization tasks. Automated my
+    work using NER and summarization techniques, spent the saved time teaching myself web development. 
+  tech_stack: "Python"
+
+- company: "Protagonist"
+  title: "Swahili Consultant"
+  description: >
+    Contracted to translate search queries and evaluate translation accuracy of Tanzanian media. My
+    favorite mistranslation: "uwanja wa ndege" (airport) translated as "field of birds." 
+
+- company: "DORCAS"
+  title: "Project Management Intern"
+  description: >
+    Translated grant propopsals (Swahili/English, occasionally Dutch) and conducted field
+    interviews with program beneficiaries in Swahili. Drank copious amounts of tea and never
+    learned how not to burn my tongue. 
+
+- company: "The University of Alabama"
+  title: "Teaching Assistant, Physics"
+  description: >
+    Led lab sessions for introductory physics (Mechanics, Electricity & Magnetism). 
+    Still have no idea how a bicycle stays upright (but neither does anyone else). 

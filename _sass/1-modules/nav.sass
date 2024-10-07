@@ -1,0 +1,34 @@
+@use "sass:color"
+
+nav.nav-wrap
+    ul.navigation
+        transition: all 0.3s ease-in
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 900
+        width: 200px
+        display: flex
+        flex-direction: column
+        list-style-type: none
+        padding: 20px 0px 0 40px
+        margin: 0
+        // @media screen and (max-width: 600px)
+        //     display: none
+        li
+            padding-bottom: 5px
+            a
+                color: $white
+                transition: all 0.15s ease-in
+                font-size: 0.8em
+            a:hover 
+                color: color.adjust($white, $lightness: -25%)
+                
+    ul.navigation.nav-dark
+        li
+            a
+                color: $primary
+            a:hover
+                color: color.adjust($white, $lightness: -25%)
+
+

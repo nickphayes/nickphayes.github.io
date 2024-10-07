@@ -1,0 +1,47 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: Nick Hayes
+email:
+description: >- # this means to ignore newlines until "baseurl:"
+  Nicholas (Nick) Hayes works on computational tools for social good, 
+  with a focus in AI Safety and AI for Climate. He is a Mathematician, Linguist, 
+  and Rhodes Scholar who previously attended Oxford and the University of Alabama. 
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://nicholas-hayes.com" # the base hostname & protocol for your site, e.g. http://example.com
+pathToBlogImgBin: /assets/img/blog/
+
+github:  https://github.com/nickphayes
+linkedin: https://www.linkedin.com/in/nicholas-hayes14/
+google_scholar: https://scholar.google.com/citations?user=FRwzDgYAAAAJ&hl=en
+highlighter: rouge
+
+# Build settings
+permalink: pretty
+markdown: kramdown
+gems:
+  - jekyll-feed
+  - jekyll-autoprefixer
+exclude: 
+  - Gemfile
+  - Gemfile.lock
+
+sass:
+  sass_dir: _sass

@@ -1,0 +1,142 @@
+@use "sass:color"
+
+// Experience
+h2.experience
+    text-align: center
+    padding-top: 100px
+.timeline
+    position: relative
+    max-width: 1000px
+    margin: 100px auto
+
+    .timeline-circle
+        width: 40px
+        height: 40px
+        border-radius: 50%
+        background-color: color.adjust($white, $lightness: -25%)
+        border: 3px solid $white
+        position: absolute
+        right: -20px
+        top: 32px
+        z-index: 10
+
+    .container
+        padding: 10px 50px
+        position: relative
+        width: 50%
+        
+        .text-box
+            padding: 20px 30px
+            background: $white
+            position: relative
+            border-radius: 6px
+            details
+                display: inline-block
+                transition: 0.2s background linear
+                // background-color: color.adjust($white, $lightness: -25%)
+                // background-color: $secondary
+                border-radius: 5px
+                p 
+                    margin: 10px
+                    font-weight: 400
+                summary
+                    list-style-type: none
+                    font-size: 0.75em
+                    font-weight: 500
+                    text-transform: uppercase
+                    letter-spacing: 1px
+                    padding: 0
+                    // border: 2px solid $primary
+                    border-radius: 5px
+                    // background-color: $secondary
+                    // background-color: color.adjust($white, $lightness: -25%)
+                summary::marker
+                    color: $primary
+                
+                summary:hover
+                    cursor: pointer
+                    // background-color: color.adjust($white, $lightness: -25%)
+                summary::before
+                    content: '[+] show'
+                &[open] > summary::before
+                    content: '[-] hide'   
+            h4
+                padding: 10px 0
+                text-weight: 200
+            h5
+                color: $secondary
+
+            h4, p
+                color: $primary
+
+            .tech-stack
+                font-size: 0.8em
+                font-weight: 700
+                padding-top: 5px
+
+            .left-container-arrow
+                height: 0
+                width: 0
+                position: absolute
+                top: 28px
+                z-index: 1
+                border-top: 15px solid transparent
+                border-bottom: 15px solid transparent
+                border-left: 15px solid $white
+                right: -15px
+            
+            .right-container-arrow
+                height: 0
+                width: 0
+                position: absolute
+                top: 28px
+                z-index: 1
+                border-top: 15px solid transparent
+                border-bottom: 15px solid transparent
+                border-right: 15px solid $white
+                left: -15px
+                
+
+    .left-container
+        left: 0
+    .right-container
+        left: 50%
+        .timeline-circle
+            left: -20px
+
+    &::after
+        content: ''
+        position: absolute
+        width: 6px
+        height: 100%
+        background: $white
+        top: 0
+        left: 50%
+        margin-left: -3px
+        z-index:-1
+
+@media screen and (max-width: 600px)
+    .timeline
+        margin: 50px auto
+
+        &::after
+            left: 31px
+        .container
+            width: 100%
+            padding-left: 80px
+            padding-right: 25px
+            .text-box
+                .right-container-arrow, .left-container-arrow
+                    border-left: 0
+                    border-right: 15px solid $primary
+                    left: -15px
+        .right-container
+            left: 0
+
+        .left-container, .right-container
+            .timeline-circle
+                left: 10px
+            
+        
+        
+

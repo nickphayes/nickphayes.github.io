@@ -1,0 +1,25 @@
+<hr>
+<br>
+<h2 class="publications">Academic Work</h2>
+<div class="publications-content-wrapper">
+    {% for category in site.data.publications %}
+        <h3>{{ category.category }}</h3>
+        <hr>
+        <ul>
+            {% for paper in category.papers %}
+                <li class="publication-item">
+                    <!-- Add an image on the left -->
+                    <img src="{{ paper.image }}" alt="Publication image" class="publication-img">
+                    
+                    <!-- Publication details -->
+                    <div class="publication-info">
+                        <h4>{{ paper.title }}</h4>
+                        <p>{{ paper.authors }}</p>
+                        <p>{{ paper.venue }}</p>
+                        <a href="{{ paper.pdf }}" target="_blank" class="btn">PDF</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+<hr>
+<h2 class="experience trigger-animation" id="experience-target">Professional Experience</h2>
+
+<div class="timeline">
+    {% for xp in site.data.experience %}
+    <div class="container {% cycle 'left-container', 'right-container' %}">
+        <div class="timeline-circle"></div>
+        <div class="text-box">
+            <h5>{{ xp.company }}</h5>
+            <h4>{{ xp.title }}</h4>
+            <details>
+                <summary></summary>
+                <p>{{ xp.description }}</p>
+                {% if xp.tech_stack %}
+                <p class="tech-stack">Tech Stack: {{ xp.tech_stack }}</p>
+                {% endif %}
+            </details>
+            <span class="{% cycle 'left-container-arrow','right-container-arrow' %}"></span>
+        </div>
+    </div>
+    {% endfor %}
+</div>  
