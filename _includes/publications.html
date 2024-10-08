@@ -16,7 +16,12 @@
                         <h4>{{ paper.title }}</h4>
                         <p>{{ paper.authors }}</p>
                         <p>{{ paper.venue }}</p>
-                        <a href="{{ paper.pdf }}" target="_blank" class="btn">PDF</a>
+                        <div class="pub-buttons">
+                            <a href="{{ paper.pdf }}" target="_blank" rel="noreferrer noopener" class="btn">PDF</a>
+                            {% if paper.blogpost %}
+                            <a href="{{ site.baseurl }}{{ paper.blogpost }}" target="_blank" rel="noreferrer noopener" class="btn blog-btn">Blog Post</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </li>
             {% endfor %}
