@@ -14,7 +14,7 @@
   description: >
     Created a classification model for 9 cetacean species in the Western North Atlantic 
     using passive acoustic recordings. Spent my mornings listening to dolphin clicks and
-    starting at spectograms until my eyes hurt, spent my afternoons playing with 
+    staring at spectograms until my eyes hurt, spent my afternoons playing with 
     random forest models. Learned how to identify Risso's dolphin by ear. 
   tech_stack: "PAMGuard, R"
 
