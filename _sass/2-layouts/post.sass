@@ -3,14 +3,18 @@
         display: none
 
 .blog-post-container
-    max-width: 600px
+    max-width: 800px
     margin: 100px auto 100px auto
     padding: 0 20px
+h1, h2
+    padding-top: 30px
+    padding-bottom: 20px
 
-h2, h3, h4
+h3, h4
     padding-bottom: 10px
 p
     font-weight: 400
+    padding-bottom: 1em
     a
         font-weight: 600
         color: $highlight
@@ -19,9 +23,22 @@ p
             color: $secondary
 
 ol
+    font-family: "Open Sans", Arial, sans-serif
+    margin-block-start: 0
     font-weight: 400
     color: $primary
     li
         padding-bottom: 3px
     li::marker
         color: $secondary
+
+p
+    img.pattern-examples
+        width: 100%
+    img.re-wired-network
+        width:100%
+        
+
+.footnotes
+    p, li::marker
+        font-size: 0.8em
