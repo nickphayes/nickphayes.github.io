@@ -1,5 +1,6 @@
 - company: "Land's End to John o'Groats"
   title: "Cyclist"
+  years: 2024
   description: >
     Cycled over 1000 miles in 13 days in a self-supported
     cycletour from the southerwestern tip to the northeastern tip
@@ -9,25 +10,30 @@
     Never quite escaped the rain, never quite learned to love it either. 
 - company: "The Invariants"
   title: "Poet"
+  years: 2024
   description: >
     Scored a gift card for winning a math poetry competition. 
 - company: "Georgia Jewel pt. 2"
   title: "Ultramarathoner"
+  years: 2022
   description: >
     Didn't break my ankle this time. Nice.
     Finished the race with my brother.
 - company: "TEDxUniversityofAlabama"
   title: "Executive Director"
+  years: 2022
   description: >
     Brought the official TEDx stamp to the University of Alabama. 
     You can find the talks on YouTube!
 - company: "Georgia Jewel pt. 1"
   title: "Ultramarathoner"
+  years: 2021
   description: >
     Broke my ankle trying to run my first ultramarathon.
     Oops. Raised over $5000 for Pediatric Brain Tumor Foundation. 
 - company: "Refugee Empowerment Program"
   title: "English Teacher"
+  years: 2020
   description: >
     Taught three levels of English to East African refugees
     in Memphis, TN for two months until COVID hit. 
@@ -37,7 +43,8 @@
   title: "Speedcuber"
   description: >
     Took my puzzlecube hobby a bit
-    too far and got into speedcubing. Managed to solve a
+    too far and got into speedcubing. 
+    Managed to solve a
     3x3x3 in 13.67 seconds. Got busted in school for practicing
     during class.
 - company: "Hobbyist"
