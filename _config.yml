@@ -22,11 +22,10 @@ title: Nick Hayes
 email:
 description: >- # this means to ignore newlines until "baseurl:"
   Nicholas (Nick) Hayes works on computational tools for social good, 
-  with a focus in AI Safety and AI for Climate. He is a Mathematician, Linguist, 
-  and Rhodes Scholar who previously attended Oxford and the University of Alabama. 
+  with a focus in AI Safety and AI for Climate. 
 keywords: >-
   Rhodes, Alabama, Oxford, AI Safety, Climate, Linguistics, Swahili, Mathematics,
-  Machine Learning, nick hayes, Nick Hayes, nicholas hayes, Nicholas Hayes, Boren, 
+  Machine Learning, nick hayes, Nick Hayes, nicholas hayes, Nicholas Hayes, Boren Scholar, 
   Randall Research Scholar, Hollings Scholar
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://nicholas-hayes.com" # the base hostname & protocol for your site, e.g. http://example.com
@@ -35,6 +34,7 @@ pathToBlogImgBin: /assets/img/blog/
 github:  https://github.com/nickphayes
 linkedin: https://www.linkedin.com/in/nicholas-hayes14/
 google_scholar: https://scholar.google.com/citations?user=FRwzDgYAAAAJ&hl=en
+
 highlighter: rouge
 
 # Build settings
