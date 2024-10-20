@@ -25,18 +25,16 @@ Lastly, our target behavior (i.e. objective) and data inform the design of each 
 # Main Title
 
 Some quick notation:
-- $$ x $$ | inputs
-- $$ y $$ | labels
-- $$ \theta $$ | parameters
-- $$ m(\theta) $$ | a model defined on some set of parameters
-- $$ m(\theta; x) $$ | a model define on some set of parameters and evaluated on inputs $$ x $$
-- $$ \mathcal{L} $$ | a loss function
-
-Things we ignore here: input embeddings, layer normalization, output layers
+- $$ x $$ \| inputs
+- $$ y $$ \| labels
+- $$ \theta $$ \| parameters
+- $$ m(\theta) $$ \| a model defined on some set of parameters
+- $$ m(\theta; x) $$ \| a model define on some set of parameters and evaluated on inputs $$ x $$
+- $$ \mathcal{L} $$ \| a loss function
 
 ## Basics
 
-Training a model is equivalent to finding the set of parameters that minimizes the loss function:
+Training a model is equivalent to finding the set of parameters that minimizes a loss function:
 
 $$
 \theta^* := \underset{\theta \in \Theta}{\operatorname{argmin}}  \mathcal{L} (m(\theta; x), y)
@@ -47,33 +45,13 @@ subject to some iterative update rule defined by the optimizer.
 $$
 \theta^{k+1} = \theta^k + \alpha^k s^k 
 $$
-
-## Linear Regression
-**Learnable Parameters**: $$ W, b $$
-
-For $$ x \in \mathbb{R}^n $$, $$ b \in \mathbb{R}^m $$, and $$ W \in \mathbb{R}^{m \times n}$$, linear models take the following form:
-
-$$
-\begin{align*}
-\hat{y} = Wx + b
-\end{align*}
-$$
-
-$$ \theta $$ consists of $$\{ W, b \} $$, which define linear transformations of the input data. It is sufficient to consider only the shallow case, 
-as any composition of linear layers can be described as a single linear transformation. We can think of $$ W $$ as scaling the input space, while $$ b $$ translates the data in this newly defined space. Together, $$ W $$ and $$ b $$ define a hyperplane. For classification tasks, this represents a decision boundary (suitable for linearly separable data), while for regression tasks, this represents a continouous output surface corresponding to model predictions. 
-
-## Logistic Regression
-**Learnable Parameters**: $$ W, b $$
-
-Logistic models start with the following form:
-
-$$
-\begin{align*}
-\sigma(z) &= \sigma(Wx + b)
-\end{align*}
-$$
-
-where $$ \sigma $$ represents either a sigmoid (or softmax) activation for binary (or multi-class) classification tasks[^b]. The sigmoid function is defined as 
+### Model
+For our purposes here, I will use "model" to refer to core architecture *excluding output layers and (for the most part) embedding layers*.
+The model thus defines how a (possibly embedded) input is propagated forwards to produce the final set of model logits. We can then define the 
+output layers as the mapping from logits to overall model prediction. 
+### Output Layers
+For regression tasks, the output layer often takes the form of a simply linear mapping from the logit space to the target prediction space. For
+classification tasks, we might also require a sigmoid or softmax activation function. The sigmoid function is defined as 
 
 $$
 \sigma(z)= \frac{1}{1 + e^{-z}}
@@ -102,8 +80,36 @@ $$
 
 As most machine learning objectives are abstracted into multi-class classification problems, this is an extremely common output layer. 
 
-## Deep Neural Network
-**Learnable Parameters**: $$ W_k, b_k $$ for $$ k = 0, 1, \dots , l$$ 
+# Model Architectures
+## Linear Regression
+**Learnable Parameters**: $$ \theta = \{W, b \}$$
+
+For $$ x \in \mathbb{R}^n $$, $$ b \in \mathbb{R}^m $$, and $$ W \in \mathbb{R}^{m \times n}$$, linear models take the following form:
+
+$$
+\begin{align*}
+y_L = Wx + b
+\end{align*}
+$$
+
+It is sufficient to consider only the shallow case, 
+as any composition of linear layers can be described as a single linear transformation. We can think of $$ W $$ as scaling the input space, while $$ b $$ translates the data in this newly defined space. Together, $$ W $$ and $$ b $$ define a hyperplane. For classification tasks, this represents a decision boundary (suitable for linearly separable data), while for regression tasks, this represents a continouous output surface corresponding to model predictions. 
+
+## Logistic Regression
+**Learnable Parameters**: $$ \theta = \{W, b \}$$
+
+For $$ x \in \mathbb{R}^n $$, $$ b \in \mathbb{R}^m $$, and $$ W \in \mathbb{R}^{m \times n}$$, logistic models take the following form:
+
+$$
+\begin{align*}
+y_L &= \sigma(Wx + b)
+\end{align*}
+$$
+
+where $$ \sigma $$ represents either a sigmoid (or softmax) activation for binary (or multi-class) classification tasks[^b].
+
+## Vanilla Deep Neural Network
+**Learnable Parameters**: $$ \theta = \{ W_k, b_k $$ for each layer $$\}$$ 
 
 A vanilla deep neural network (also called an MLP -- multilayer perceptron) 
 can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
@@ -119,20 +125,91 @@ h_l &= \sigma (z_l)
 \end{align*}
 $$
 
-Choice of the activation function $$ \sigma $$ is motivated by empirical rather than theoretical reasons.
+Choice of the activation function $$ \sigma $$ is motivated mostly by empirical rather than theoretical reasons.
 Historically popular choices include tanh, sigmoid, and ReLU, though current SOTA models seem to prefer non-monotonic, "leaky"
-activation functions (e.g. GELU, LeakyReLU, SiLU). 
+activation functions (e.g. GELU, LeakyReLU, SiLU). We also assume the vanilla MLP is fully connected, though in practice this is not
+always the case (e.g. dropout layers). 
 
 ## Convolutional Neural Network
+**Learnable Parameters**: $$ \theta = \{ W_k, b_k \text{ for each MLP layer; }f_l, b_l, \text{ for each filter}\}$$
+
 Convolutional Neural Networks (CNNs) were originally inspired by attempts to capture localized pixel relationships during computer vision tasks. 
-Image pixels don't exist in a vacuum; rather, they contribute to the image as a function of their context (aka, other surrounding pixels). 
+Image pixels don't exist in a vacuum; rather, they contribute meaning to the image as a function of their context (i.e., other surrounding pixels). 
 Rather than manually defining how to perform localized feature extraction, CNNs (specifically the convolution part) learn these for us. 
 Otherwise, downstream portions of CNNs beyond convolution are essentially the same as vanilla MLPs. We can thus think of CNNs as two distinct 
-components joined together: a feature extractor and an MLP. 
+components joined together: a set of feature extractors, and an MLP. 
 
+The feature extractor starts by learning a set of *feature maps*. To generate a feature map, we slide a matrix over subsections of the input
+and perform element-wise matrix multiplication. We call one of these sliding matrices a *filter* or *kernel*, while how we move the filter around
+the input is controlled by its *padding* and *stride-length*. Each time we convolve a filter with the input, we obtain a new matrix, whose elements 
+are summed and used to populate the *feature map*. Feature maps are thus matrices whose entries correspond to the summed entries of matrices obtained
+from convolving the filter over different locations of the input. As you can see, the added depth and composition of operations makes it increasingly 
+difficult to describe components of the model in terms of the original input. 
 
+$$
+\begin{align*}
+\phi_{i, j} &= \sum_{m=0}^{k_h}\sum_{n=0}^{k_w} x_{i+m, j+n} f_{m, n} 
+\end{align*}
+$$
+
+Once we have a feature map, we add a bias and nonlinear activation function before feeding into the aggregation component.
+
+$$
+\begin{align*}
+\Phi = \sigma(\phi + b)
+\end{align*}
+$$
+
+Aggregation involves reducing the dimensionality of the learned feature map, typically through a pooling layer (e.g. max-pooling, average-pooling). 
+For example, during max-pooling, we populate yet another matrix by sliding a window over $$ \Phi $$ and 
+extracting the maximum element from each window.
+
+$$
+\begin{align*}
+F = Pool(\Phi)
+\end{align*}
+$$
+
+Here $$ F $$ denotes the final result from convolving and aggregating one filter over the input. In practice, we can do this for 
+$$ n $$ filters, generating $$ n $$ feature extractors. For $$ l = 1, \dots, n$$, 
+
+$$
+\begin{align*}
+F^{(l)} &= Pool(\Phi^{(l)}) \\
+&= Pool(\sigma(\phi^{(l)} + b^{(l)})) \\
+&\text{where} \\
+\phi_{i, j}^{(l)} &= \sum_{m=0}^{k_h}\sum_{n=0}^{k_w} x_{i+m, j+n} f_{m, n}^{(l)}
+\end{align*}
+$$
+
+At this stage, we have a set of $$ n $$ feature extractors $$ F^{(l)} $$, which are to be fed into an MLP. There is some nuance as to how
+we choose to flatten and combine inputs, but a basic approach would be to flatten each $$ F^{(l)} $$ and concatenate the results, generating a large input vector
+for an MLP. 
+
+$$
+\begin{align*}
+F' &= Concat (Flatten(F^{(l)})) \\
+\text{for } l &= 1, \dots, n \\
+& \downarrow \\
+y_L &= MLP(F')
+\end{align*}
+$$
+
+Written more concisely, a generic CNN takes the following form:
+
+$$
+\begin{align*}
+y_L = MLP(Conv(x))
+\end{align*}
+$$
+
+where we use $$ Conv(x) $$ to represent the process of concatenating and flattening learned feature maps. 
 
 ## Transformer
+
+**Learnable Parameters (per transformer block)**
+$$ \theta = \{ W_k, b_k \text{ for each MLP layer; }W_{QK}, W_{V}, \text{ for each attention head}\}$$
+
 
 The backbone of the transformer architecture is the **residual stream**, which carries information through the model. 
 It is initialized with an embedded representation of our input, then subsequently modified by successive blocks. 
