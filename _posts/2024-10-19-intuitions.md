@@ -124,13 +124,20 @@ Historically popular choices include tanh, sigmoid, and ReLU, though current SOT
 activation functions (e.g. GELU, LeakyReLU, SiLU). 
 
 ## Convolutional Neural Network
+Convolutional Neural Networks (CNNs) were originally inspired by attempts to capture localized pixel relationships during computer vision tasks. 
+Image pixels don't exist in a vacuum; rather, they contribute to the image as a function of their context (aka, other surrounding pixels). 
+Rather than manually defining how to perform localized feature extraction, CNNs (specifically the convolution part) learn these for us. 
+Otherwise, downstream portions of CNNs beyond convolution are essentially the same as vanilla MLPs. We can thus think of CNNs as two distinct 
+components joined together: a feature extractor and an MLP. 
+
+
 
 ## Transformer
 
-The backbone of the transformer architecture is the residual stream, which carries information through the model. 
+The backbone of the transformer architecture is the **residual stream**, which carries information through the model. 
 It is initialized with an embedded representation of our input, then subsequently modified by successive blocks. 
-For each encoder block (ignoring normalization layers), we add a multi-head attention output and an MLP to the residual stream. 
-In encoder only models, we simply repeat successive blocks before applying an unembedding layer to obtain output logits. 
+For each block (ignoring normalization layers), we add the outputs from multi-head attention and an MLP to the residual stream. 
+We then repeat successive blocks before applying an unembedding[^c] layer to obtain output logits. 
 We'll break down each component below. 
 
 The **embedding layer** is a simple weight matrix applied to the input. Conceptually, we can think of $$ W_E $$ as
@@ -142,7 +149,7 @@ $$
 \end{align*}
 $$
 
-The original formulation for single-head attention computes keys, queries, and values from three 
+The original formulation for **single-head attention** computes keys, queries, and values from three 
 separate weight matrices. Attention scores are the normalized matrix product of queries and keys, 
 which are then fed into a softmax activation and multiplied with the values. We can think of the attention scores
 as learning which information to "attend" to, while the value matrix
@@ -159,19 +166,19 @@ $$
 \end{align*}
 $$
 
-Further inspection shows us we can express this directly in terms of just two learnable weight matrices:
-a key-query matrix, of size FILL IN LATER, and a value matrix of size FILL IN LATER. 
+Further inspection shows us we can express this directly in terms of just two learnable weight matrices[^d]:
+a key-query matrix and a value matrix. 
 
 $$
 \begin{align*}
     a &=\text{softmax}(\frac{Q^TK}{d_k}) V^T \\
-    &= \text{softmax}(\frac{x'^TW_QW_Kx'}{d_k}) x'W_V \\
+    &= \text{softmax}(\frac{x'^TW_{Q}^TW_Kx'}{d_k}) x'W_V \\
     &= \text{softmax}(\frac{x'^TW_{QK}x'}{d_k}) x'W_V
 \end{align*}
 $$
 
 **Multi-head attention** is exactly what it sounds like: we repeat the same process for multiple attention heads. 
-To combine results and return to the dimension of the residual stream, we simply concatenate all attention heads 
+To combine results and return to the dimension of the residual stream, we concatenate all attention heads 
 together and scale by yet another matrix. For $$ n $$-head attention, using $$ i $$ to index heads, we have
 
 $$
@@ -181,17 +188,34 @@ $$
 \end{align*}
 $$
 
-Depending on the pre-training objective (e.g. masked language modeling, next-token prediction, etc.), there are additional
-nuances regarding how the softmax activation is applied with masking, but the core flow remains the same. 
+Depending on the pre-training objective (e.g. masked language modeling, next-token prediction, knowledge representation etc.) 
+and model design choices, there are additional nuances regarding multi-head attention. For instance, encoder and decoder models differ in 
+how the softmax activation is applied (with/without autoregressive masking), while some may also choose to directly add the output of each 
+attention head to the residual stream rather than concatenating and re-weighting. These nuances aside, the core flow remains the same. 
 
-As described above, the **MLP layer** is a stack of linear weights with nonlinear activations separating layers. We'll henceforth denote the 
-output of the MLP as $$ x_{MLP} $$. Putting it all together, each block simply adds the multi-head attention and 
+The **MLP layer** is exactly as described [above](#deep-neural-network): a stack of linear layers separated by nonlinear activations. 
+We'll henceforth denote the output of the MLP as $$ x_{MLP} $$. Putting it all together, each block simply adds the multi-head attention and 
 MLP output to the residual stream. 
 
 $$
 \begin{align*}
-r_0 &= W_Ex \\
-r_1 &= r_0 + a_{MH} + x_{MLP}
+r^{(0)} &= W_Ex \\
+r^{(1)} &= r_0 + a_{MH}^{(1)} + x_{MLP}^{(1)} \\
+\end{align*}
+$$
+
+For $$n$$-blocks feeding into an **unembedding layer** (essentially a reverse lookup table), the full flow takes the following form:
+
+$$
+\begin{align*}
+x \\
+\downarrow \\
+r^{(0)} &= W_Ex \\
+r^{(1)} &= r_0 + a_{MH}^{(1)} + x_{MLP}^{(1)} \\
+\vdots \\
+r^{(n)} &= r^{(n-1)} + a_{MH}^{(n)} + x_{MLP}^{(n)} \\
+\downarrow \\ 
+T(x) &= W_Ur^{(n)}
 \end{align*}
 $$
 
@@ -204,4 +228,5 @@ DIMENSION CHECK
 
 [^a]: This is a fairly narrow definition for what constitutes machine learning, lending itself more easily to (semi-)supervised machine learning problems. This is not the only way in which machines can "learn"; it is, however, the dominant paradigm that can be used to trace major milestones in ML. 
 [^b]: Logistic models are typically reserved for classification tasks.
-[^c]: Embeddings are notably ignored here, as we assume the input to the model is not $$ x $$, rather some embedded representation $$ x' $$ 
+[^c]: Note here that I use the language "embedding/unembedding" rather than "encoding/decoding." This is to avoid misleading jargon, as encoder-only, decoder-only, and encoder-decoder models all do this embedding/unembedding; the models are rather split based on whether/how masking is applied during multihead attention. Decoders use autoregressive masking, while encoders do not. This makes the former particular well-suited for generative tasks, while the latter is likely better for learning latent representations of the data. 
+[^d]: While this might make the math easier to digest, it could also change the way we count learnable parameters.
