@@ -105,7 +105,8 @@ As most machine learning objectives are abstracted into multi-class classificati
 ## Deep Neural Network
 **Learnable Parameters**: $$ W_k, b_k $$ for $$ k = 0, 1, \dots , l$$ 
 
-A vanilla deep neural network can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
+A vanilla deep neural network (also called an MLP -- multilayer perceptron) 
+can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
 With $$ z_0 = W_0x + b_0 $$, a network with $$ l $$ layers is composed such that
 
 $$
@@ -126,7 +127,77 @@ activation functions (e.g. GELU, LeakyReLU, SiLU).
 
 ## Transformer
 
-An encoder block begins with some input $$ x' $$, representing an embedded version of $$ x $$.
+The backbone of the transformer architecture is the residual stream, which carries information through the model. 
+It is initialized with an embedded representation of our input, then subsequently modified by successive blocks. 
+For each encoder block (ignoring normalization layers), we add a multi-head attention output and an MLP to the residual stream. 
+In encoder only models, we simply repeat successive blocks before applying an unembedding layer to obtain output logits. 
+We'll break down each component below. 
+
+The **embedding layer** is a simple weight matrix applied to the input. Conceptually, we can think of $$ W_E $$ as
+defining some lookup table that maps $$ x \rightarrow x' $$.  
+
+$$
+\begin{align*}
+  x' = W_Ex
+\end{align*}
+$$
+
+The original formulation for single-head attention computes keys, queries, and values from three 
+separate weight matrices. Attention scores are the normalized matrix product of queries and keys, 
+which are then fed into a softmax activation and multiplied with the values. We can think of the attention scores
+as learning which information to "attend" to, while the value matrix
+determines how much of that information to actually "copy" to the residual stream. 
+Using $$ d_k $$ to represent the missing dimension of the attention matrices, we have
+
+$$
+\begin{align*}
+  Q &= W_Qx' \\
+  K &= W_Kx' \\
+  V &= W_Vx' \\
+  &\downarrow \\
+  a &=\text{softmax}(\frac{Q^TK}{d_k}) V^T
+\end{align*}
+$$
+
+Further inspection shows us we can express this directly in terms of just two learnable weight matrices:
+a key-query matrix, of size FILL IN LATER, and a value matrix of size FILL IN LATER. 
+
+$$
+\begin{align*}
+    a &=\text{softmax}(\frac{Q^TK}{d_k}) V^T \\
+    &= \text{softmax}(\frac{x'^TW_QW_Kx'}{d_k}) x'W_V \\
+    &= \text{softmax}(\frac{x'^TW_{QK}x'}{d_k}) x'W_V
+\end{align*}
+$$
+
+**Multi-head attention** is exactly what it sounds like: we repeat the same process for multiple attention heads. 
+To combine results and return to the dimension of the residual stream, we simply concatenate all attention heads 
+together and scale by yet another matrix. For $$ n $$-head attention, using $$ i $$ to index heads, we have
+
+$$
+\begin{align*}
+  a_i &= \text{softmax}(\frac{x'^T(W_{QK})^{(i)}x'}{d_k}) x'W_V^{(i)} \\
+  a_{MH} &= \text{Concat}(a_i, \dots, a_n)W_{MH}
+\end{align*}
+$$
+
+Depending on the pre-training objective (e.g. masked language modeling, next-token prediction, etc.), there are additional
+nuances regarding how the softmax activation is applied with masking, but the core flow remains the same. 
+
+As described above, the **MLP layer** is a stack of linear weights with nonlinear activations separating layers. We'll henceforth denote the 
+output of the MLP as $$ x_{MLP} $$. Putting it all together, each block simply adds the multi-head attention and 
+MLP output to the residual stream. 
+
+$$
+\begin{align*}
+r_0 &= W_Ex \\
+r_1 &= r_0 + a_{MH} + x_{MLP}
+\end{align*}
+$$
+
+
+
+DIMENSION CHECK
 
 
 
