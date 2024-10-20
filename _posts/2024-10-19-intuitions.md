@@ -32,6 +32,8 @@ Some quick notation:
 - $$ m(\theta; x) $$ | a model define on some set of parameters and evaluated on inputs $$ x $$
 - $$ \mathcal{L} $$ | a loss function
 
+Things we ignore here: input embeddings, layer normalization, output layers
+
 ## Basics
 
 Training a model is equivalent to finding the set of parameters that minimizes the loss function:
@@ -47,6 +49,8 @@ $$
 $$
 
 ## Linear Regression
+**Learnable Parameters**: $$ W, b $$
+
 For $$ x \in \mathbb{R}^n $$, $$ b \in \mathbb{R}^m $$, and $$ W \in \mathbb{R}^{m \times n}$$, linear models take the following form:
 
 $$
@@ -59,6 +63,8 @@ $$ \theta $$ consists of $$\{ W, b \} $$, which define linear transformations of
 as any composition of linear layers can be described as a single linear transformation. We can think of $$ W $$ as scaling the input space, while $$ b $$ translates the data in this newly defined space. Together, $$ W $$ and $$ b $$ define a hyperplane. For classification tasks, this represents a decision boundary (suitable for linearly separable data), while for regression tasks, this represents a continouous output surface corresponding to model predictions. 
 
 ## Logistic Regression
+**Learnable Parameters**: $$ W, b $$
+
 Logistic models start with the following form:
 
 $$
@@ -94,12 +100,37 @@ $$
 \hat{y} = \underset{k}{\operatorname{argmax}} \sigma(z)
 $$
 
-## (Deep) Neural Network
-The vanilla deep neural network can be seen as a stack of linear layers with nonlinear activations in between layers. 
+As most machine learning objectives are abstracted into multi-class classification problems, this is an extremely common output layer. 
+
+## Deep Neural Network
+**Learnable Parameters**: $$ W_k, b_k $$ for $$ k = 0, 1, \dots , l$$ 
+
+A vanilla deep neural network can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
+With $$ z_0 = W_0x + b_0 $$, a network with $$ l $$ layers is composed such that
+
+$$
+\begin{align*}
+z_1 &= W_1 h_{0} + b_1 \\
+h_1 &= \sigma (z_1) \\
+&\vdots \\
+z_l &= W_l h_{l-1} + b_l \\
+h_l &= \sigma (z_l)
+\end{align*}
+$$
+
+Choice of the activation function $$ \sigma $$ is motivated by empirical rather than theoretical reasons.
+Historically popular choices include tanh, sigmoid, and ReLU, though current SOTA models seem to prefer non-monotonic, "leaky"
+activation functions (e.g. GELU, LeakyReLU, SiLU). 
 
 ## Convolutional Neural Network
 
 ## Transformer
 
+An encoder block begins with some input $$ x' $$, representing an embedded version of $$ x $$.
+
+
+
+
 [^a]: This is a fairly narrow definition for what constitutes machine learning, lending itself more easily to (semi-)supervised machine learning problems. This is not the only way in which machines can "learn"; it is, however, the dominant paradigm that can be used to trace major milestones in ML. 
 [^b]: Logistic models are typically reserved for classification tasks.
+[^c]: Embeddings are notably ignored here, as we assume the input to the model is not $$ x $$, rather some embedded representation $$ x' $$ 
