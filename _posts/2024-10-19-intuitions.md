@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "From Linear Regression to Transformers"
-categories: "Machine  Learning"
-featImg: 
-excerpt: "Building mathematical intuitions for modern ML architectures"
+categories: "Machine Learning"
+featImg: neuralnetwork.png
+excerpt: "The math behind modern ML architectures"
 permalink: "math-of-modern-ML"
 style: 
 ---
@@ -18,7 +18,7 @@ A few quick points:
 4. Optimizers control how we update the parameters in response to loss function feedback. 
 5. Our target behavior (i.e. objective) and data inform the design of each of the above.  
 
-This post is focused on **model architectures**--specifically, developing mathematical intuitions for modern model architectures. 
+This post is focused on **model architectures**---specifically, developing mathematical intuitions for modern model architectures. 
 Below, I 
 mathematically formulate increasingly complex models, starting with linear regression and building to today's transformer-based
 paradigm. 
@@ -33,7 +33,7 @@ For any questions regarding notation, please see the [notation](#notation) secti
 
 ---
 
-## Basics
+# Basics
 
 Training a model is equivalent to finding the set of parameters that minimizes a loss function:
 
@@ -47,11 +47,11 @@ $$
 \theta^{k+1} = \theta^k + \alpha^k s^k 
 $$
 
-### Model
+## Model
 For the purposes of this post, I will use "model" to refer to core architecture *excluding output layers and (for the most part) embedding layers*.
 The model thus defines how a (possibly embedded) input is propagated forwards to produce the final set of model logits. We can then define the 
 output layers as the mapping from logits to overall model prediction. 
-### Output Layers
+## Output Layers
 For regression tasks, the output layer often takes the form of a simple linear mapping from the logit space to the target prediction space. For
 classification tasks, we might also require a sigmoid or softmax activation function. The sigmoid function is defined as 
 
@@ -113,7 +113,7 @@ where $$ \sigma $$ represents either a sigmoid (or softmax) activation for binar
 ## Vanilla Deep Neural Network
 **Learnable Parameters**: $$ \theta = \{ W_k, b_k $$ for each layer $$\}$$ 
 
-A vanilla deep neural network (also called an MLP -- multilayer perceptron) 
+A vanilla deep neural network (also called an MLP --- multilayer perceptron) 
 can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
 With $$ z_0 = W_0x + b_0 $$, a network with $$ l+1 $$ layers is composed such that
 
@@ -360,5 +360,5 @@ where $$ T(x) $$ denotes the output from a single, generic transformer block. Tr
 [^a]: This implies a fairly narrow definition for what constitutes machine learning, lending itself more easily to (semi-)supervised machine learning problems. This is not the only way in which machines can "learn"; it is, however, one of the dominant paradigms that can be used to trace major milestones in ML.
 [^b]: Logistic models are typically reserved for classification tasks.
 [^c]: Note here that I use the language "embedding/unembedding" rather than "encoding/decoding." This is to avoid misleading jargon, as encoder-only, decoder-only, and encoder-decoder models all do this embedding/unembedding. The encoder/decoder typology is rather split based on whether/how masking is applied during multihead attention. Decoders use autoregressive masking, while encoders do not. This makes the former particular well-suited for generative tasks, while the latter is likely better for learning latent representations of the data. 
-[^d]: While this might make the math easier to digest, it could also change the way we count learnable parameters.
+[^d]: While this might make the math easier to digest, it could also change the way we count parameters. Given that most AI safety frameworks and responsible scaling policies use parameter and flop counts as a proxy for model capability, this quickly becomes relevant to technical AI governance. 
 [^e]: Although accurate, this is an unfortunately complex way to describe how a feature map is generated in just one sentence. The added depth and composition of operations makes it increasingly difficult to succintly describe components of the model in terms of the original input. 
