@@ -1,43 +1,44 @@
 ---
 layout: post
-title: "working title"
-categories: "Machine Learning"
+title: "From Linear Regression to Transformers"
+categories: "Machine  Learning"
 featImg: 
-excerpt: "Mathematical Intuitions for Modern ML"
-permalink: "working-link"
+excerpt: "Building mathematical intuitions for modern ML architectures"
+permalink: "math-of-modern-ML"
 style: 
 ---
 
 ---
-### the goal
-trace chronology of modern ML models via mathematical intuitions
+### Introduction
+Training a modern ML model[^a] typically involves four main components: a model architecture, a loss function, an optimizer, and a dataset.
+A few quick points:
+1. Parameters are what a machine actually learns. 
+2. Model architectures control how parameters interact with one another. 
+3. Loss functions define how we evaluate model performance on our objective.
+4. Optimizers control how we update the parameters in response to loss function feedback. 
+5. Our target behavior (i.e. objective) and data inform the design of each of the above.  
 
-Training a modern ML system[^a] typically involves four main components: a dataset, a model, a loss function, and an optimizer.
+This post is focused on **model architectures**--specifically, developing mathematical intuitions for modern model architectures. 
+Below, I 
+mathematically formulate increasingly complex models, starting with linear regression and building to today's transformer-based
+paradigm. 
 
-Parameters are what a machine actually learns. 
-Model architectures control how parameters interact with one another. 
-Optimizers control how we update the parameters during each training step. 
-Loss functions define how we evaluate model performance on the objective, 
-doing most of the heavy lifting for guiding model behavior towards a particular task. 
-Lastly, our target behavior (i.e. objective) and data inform the design of each of the above.  
+**Note**: *this post is not exhaustive.* I have identified what I understand to be the main paradigms contributing to current,
+transformer-based approaches. Notable exclusions from the zoo of ML models 
+include SVMs, RNNs, LSTMs, RL methods, Bayesian models, GANs, VAEs, and KANs. 
+
+For any questions regarding notation, please see the [notation](#notation) section at the bottom. 
+
+
 
 ---
-# Main Title
-
-Some quick notation:
-- $$ x $$ \| inputs
-- $$ y $$ \| labels
-- $$ \theta $$ \| parameters
-- $$ m(\theta) $$ \| a model defined on some set of parameters
-- $$ m(\theta; x) $$ \| a model define on some set of parameters and evaluated on inputs $$ x $$
-- $$ \mathcal{L} $$ \| a loss function
 
 ## Basics
 
 Training a model is equivalent to finding the set of parameters that minimizes a loss function:
 
 $$
-\theta^* := \underset{\theta \in \Theta}{\operatorname{argmin}}  \mathcal{L} (m(\theta; x), y)
+\theta^* := \underset{\theta \in \Theta}{\operatorname{argmin}}  \mathcal{L} (m(\theta; X), Y)
 $$
 
 subject to some iterative update rule defined by the optimizer. 
@@ -45,28 +46,29 @@ subject to some iterative update rule defined by the optimizer.
 $$
 \theta^{k+1} = \theta^k + \alpha^k s^k 
 $$
+
 ### Model
-For our purposes here, I will use "model" to refer to core architecture *excluding output layers and (for the most part) embedding layers*.
+For the purposes of this post, I will use "model" to refer to core architecture *excluding output layers and (for the most part) embedding layers*.
 The model thus defines how a (possibly embedded) input is propagated forwards to produce the final set of model logits. We can then define the 
 output layers as the mapping from logits to overall model prediction. 
 ### Output Layers
-For regression tasks, the output layer often takes the form of a simply linear mapping from the logit space to the target prediction space. For
+For regression tasks, the output layer often takes the form of a simple linear mapping from the logit space to the target prediction space. For
 classification tasks, we might also require a sigmoid or softmax activation function. The sigmoid function is defined as 
 
 $$
 \sigma(z)= \frac{1}{1 + e^{-z}}
 $$
 
-which has the effect of squashing the output into the interval $$(0, 1)$$. Using some threshold $$ \tau \in (0,1) $$, models thus make predictions by evaluating $$ \sigma(z) \geq \tau$$. 
+where we use $$ z = y_L $$ for ease of notation. This has the effect of squashing a single-valued output into the interval $$(0, 1)$$. Using some threshold $$ \tau \in (0,1) $$, models thus make predictions by evaluating $$ \sigma(z) \geq \tau$$. 
 
 $$
 \hat{y} = \begin{cases} 
     1 & \text{if } \sigma(z) \geq \tau \\
-    0 & \text{if } \sigma(z) < \tau
+    0 & \text{otherwise }
 \end{cases}
 $$
 
-For the multi-class case, we instead use an element-wise softmax activation, which in some sense can be seen as a generalization of the sigmoid function. In this case, 
+For the multi-class case, we instead use an element-wise softmax activation, which in some sense can be seen as a generalization of the sigmoid function. In this case, for $$ z \in \mathbb{R}^m $$
 
 $$ 
 \sigma(z_k)= \frac{e^{z_k}}{\sum_{j=1}^{m} e^{z_j}} 
@@ -113,22 +115,29 @@ where $$ \sigma $$ represents either a sigmoid (or softmax) activation for binar
 
 A vanilla deep neural network (also called an MLP -- multilayer perceptron) 
 can be seen as a stack of linear layers with nonlinear activations applied (usually element-wise) in-between layers.
-With $$ z_0 = W_0x + b_0 $$, a network with $$ l $$ layers is composed such that
+With $$ z_0 = W_0x + b_0 $$, a network with $$ l+1 $$ layers is composed such that
 
 $$
 \begin{align*}
+h_0 &= \sigma(z_0) \\
 z_1 &= W_1 h_{0} + b_1 \\
 h_1 &= \sigma (z_1) \\
 &\vdots \\
 z_l &= W_l h_{l-1} + b_l \\
-h_l &= \sigma (z_l)
+h_l &= \sigma (z_l) \\
+\downarrow \\
+y_L &= h_l
 \end{align*}
 $$
 
 Choice of the activation function $$ \sigma $$ is motivated mostly by empirical rather than theoretical reasons.
-Historically popular choices include tanh, sigmoid, and ReLU, though current SOTA models seem to prefer non-monotonic, "leaky"
-activation functions (e.g. GELU, LeakyReLU, SiLU). We also assume the vanilla MLP is fully connected, though in practice this is not
-always the case (e.g. dropout layers). 
+Historically popular choices include tanh, sigmoid, and ReLU, though current state-of-the-art models seem to prefer non-monotonic, "leaky"
+activation functions (e.g. GELU, LeakyReLU, SiLU). For simplicity, we also assume the vanilla MLP is fully connected, though in practice this is not
+always the case (e.g. dropout layers). For further ease of notation, we'll use a shorthand notation to denote the model described above:
+
+$$
+y_L = MLP(x)
+$$
 
 ## Convolutional Neural Network
 **Learnable Parameters**: $$ \theta = \{ W_k, b_k \text{ for each MLP layer; }f_l, b_l, \text{ for each filter}\}$$
@@ -139,12 +148,11 @@ Rather than manually defining how to perform localized feature extraction, CNNs 
 Otherwise, downstream portions of CNNs beyond convolution are essentially the same as vanilla MLPs. We can thus think of CNNs as two distinct 
 components joined together: a set of feature extractors, and an MLP. 
 
-The feature extractor starts by learning a set of *feature maps*. To generate a feature map, we slide a matrix over subsections of the input
-and perform element-wise matrix multiplication. We call one of these sliding matrices a *filter* or *kernel*, while how we move the filter around
-the input is controlled by its *padding* and *stride-length*. Each time we convolve a filter with the input, we obtain a new matrix, whose elements 
-are summed and used to populate the *feature map*. Feature maps are thus matrices whose entries correspond to the summed entries of matrices obtained
-from convolving the filter over different locations of the input. As you can see, the added depth and composition of operations makes it increasingly 
-difficult to describe components of the model in terms of the original input. 
+The feature extractor starts by learning a set of feature maps. To generate a feature map, we slide a matrix over subsections of the input
+and perform element-wise matrix multiplication. We call one of these sliding matrices a filter or kernel, while where/how we move the filter around
+the input is controlled by its padding and stride-length. Each time we convolve a filter with the input, we obtain a new matrix, whose elements 
+are summed and used to populate the feature map. Feature maps are therefore matrices whose entries correspond to the summed entries of matrices obtained
+from convolving the filter with different subsections of the input[^e]. 
 
 $$
 \begin{align*}
@@ -177,19 +185,20 @@ $$
 \begin{align*}
 F^{(l)} &= Pool(\Phi^{(l)}) \\
 &= Pool(\sigma(\phi^{(l)} + b^{(l)})) \\
+&\text{ }\\
 &\text{where} \\
+&\text{ }\\
 \phi_{i, j}^{(l)} &= \sum_{m=0}^{k_h}\sum_{n=0}^{k_w} x_{i+m, j+n} f_{m, n}^{(l)}
 \end{align*}
 $$
 
-At this stage, we have a set of $$ n $$ feature extractors $$ F^{(l)} $$, which are to be fed into an MLP. There is some nuance as to how
+At this stage, we have a set of $$ n $$ feature extractors which are to be fed into an MLP. There is some nuance as to how
 we choose to flatten and combine inputs, but a basic approach would be to flatten each $$ F^{(l)} $$ and concatenate the results, generating a large input vector
 for an MLP. 
 
 $$
 \begin{align*}
-F' &= Concat (Flatten(F^{(l)})) \\
-\text{for } l &= 1, \dots, n \\
+F' &= Concat (\{Flatten(F^{(1)}), \dots,Flatten(F^{(n)}) \}) \\
 & \downarrow \\
 y_L &= MLP(F')
 \end{align*}
@@ -203,12 +212,20 @@ y_L = MLP(Conv(x))
 \end{align*}
 $$
 
-where we use $$ Conv(x) $$ to represent the process of concatenating and flattening learned feature maps. 
+where we use $$ Conv(x) $$ to denote the process of concatenating and flattening learned feature maps. 
 
 ## Transformer
 
 **Learnable Parameters (per transformer block)**
-$$ \theta = \{ W_k, b_k \text{ for each MLP layer; }W_{QK}, W_{V}, \text{ for each attention head}\}$$
+<!-- $$ \theta = \{ W_{E}, W_{U}, \text{ for embedding/unembedding; }W_{QK}, W_{V}, \text{ for each attention head; }W_k, b_k \text{ for each MLP layer}\}$$ -->
+
+$$ 
+\begin{align*}
+\theta = \{ W_{E}, W_{U}, \text{ for embedding/unembedding;} \\ 
+W_{QK}, W_{V}, \text{ for each attention head;} \\ 
+W_k, b_k \text{ for each MLP layer} \}
+\end{align*}
+$$
 
 
 The backbone of the transformer architecture is the **residual stream**, which carries information through the model. 
@@ -239,18 +256,19 @@ $$
   K &= W_Kx' \\
   V &= W_Vx' \\
   &\downarrow \\
-  a &=\text{softmax}(\frac{Q^TK}{d_k}) V^T
+  a &=\text{softmax}(\frac{Q^TK}{\sqrt{d_k}}) V^T
 \end{align*}
 $$
 
-Further inspection shows us we can express this directly in terms of just two learnable weight matrices[^d]:
+This style of attention is referred to as scaled dot-product attention, and though popular, is not the only method for calculating 
+attention scores (other examples include additive attention and unscaled dot-product attention). Further inspection shows us we can express this directly in terms of just two learnable weight matrices[^d]:
 a key-query matrix and a value matrix. 
 
 $$
 \begin{align*}
-    a &=\text{softmax}(\frac{Q^TK}{d_k}) V^T \\
-    &= \text{softmax}(\frac{x'^TW_{Q}^TW_Kx'}{d_k}) x'W_V \\
-    &= \text{softmax}(\frac{x'^TW_{QK}x'}{d_k}) x'W_V
+    a &=\text{softmax}(\frac{Q^TK}{\sqrt{d_k}}) V^T \\
+    &= \text{softmax}(\frac{x'^TW_{Q}^TW_Kx'}{\sqrt{d_k}}) x'W_V \\
+    &= \text{softmax}(\frac{x'^TW_{QK}x'}{\sqrt{d_k}}) x'W_V
 \end{align*}
 $$
 
@@ -260,7 +278,7 @@ together and scale by yet another matrix. For $$ n $$-head attention, using $$ i
 
 $$
 \begin{align*}
-  a_i &= \text{softmax}(\frac{x'^T(W_{QK})^{(i)}x'}{d_k}) x'W_V^{(i)} \\
+  a_i &= \text{softmax}(\frac{x'^T(W_{QK})^{(i)}x'}{\sqrt{d_k}}) x'W_V^{(i)} \\
   a_{MH} &= \text{Concat}(a_i, \dots, a_n)W_{MH}
 \end{align*}
 $$
@@ -268,7 +286,8 @@ $$
 Depending on the pre-training objective (e.g. masked language modeling, next-token prediction, knowledge representation etc.) 
 and model design choices, there are additional nuances regarding multi-head attention. For instance, encoder and decoder models differ in 
 how the softmax activation is applied (with/without autoregressive masking), while some may also choose to directly add the output of each 
-attention head to the residual stream rather than concatenating and re-weighting. These nuances aside, the core flow remains the same. 
+attention head to the residual stream rather than concatenating and re-weighting, while some schema apply an additional re-weighting to each 
+head pre-concatenation. These nuances aside, the core flow remains the same. 
 
 The **MLP layer** is exactly as described [above](#deep-neural-network): a stack of linear layers separated by nonlinear activations. 
 We'll henceforth denote the output of the MLP as $$ x_{MLP} $$. Putting it all together, each block simply adds the multi-head attention and 
@@ -281,7 +300,8 @@ r^{(1)} &= r_0 + a_{MH}^{(1)} + x_{MLP}^{(1)} \\
 \end{align*}
 $$
 
-For $$n$$-blocks feeding into an **unembedding layer** (essentially a reverse lookup table), the full flow takes the following form:
+For $$n$$-inner blocks feeding into an **unembedding layer** (essentially a reverse lookup table), the full flow of a completed
+transformer block takes the following form:
 
 $$
 \begin{align*}
@@ -296,14 +316,49 @@ T(x) &= W_Ur^{(n)}
 \end{align*}
 $$
 
+where $$ T(x) $$ denotes the output from a single, generic transformer block. Transformer based models typically stack many of these blocks in sequence, while reserving the majority ($$ \approx \frac{5}{6} $$) of learnable parameters for MLPs, with the remaining parameters ($$\approx \frac{1}{6}$$) reserved for attention. Barring some design choices bespoke to the target objective, as well as some additional performance considerations (e.g. normalization layers, parallelization), that's all there is to it.
 
+---
 
-DIMENSION CHECK
+## Notation
 
+|                  |                                               |
+|:-----------------|:----------------------------------------------------|
+| $$ x $$          | input                                             |
+| $$ X $$          | set of inputs                                           |
+| $$ x' $$          | embedded input                                             |
+| $$ y $$          | ground truth labels                                              |
+| $$ Y $$          | set of ground truth labels                                              |
+| $$ y_L $$          | logits (pre-output layer)                                               |
+| $$ \hat{y} $$          | predictions (post-output layer)                                               |
+| $$ \theta $$          | learnable parameters                                               |
+| $$ \Theta $$          | feasible set from which $$ \theta $$ is drawn                                               |
+| $$ \alpha $$          | step direction                                               |
+| $$ s $$          | step size (i.e. learning rate)                                               |
+| $$ \sigma $$          | nonlinear activation function                                               |
+| $$ W $$          | weight matrix                                               |
+| $$ b $$          | bias term                                              |
+| $$ f $$          | kernel matrix (filter)                                              |
+| $$ k_h $$          | kernel height                                              |
+| $$ k_w $$          | kernel width                                              |
+| $$ \phi $$          | feature map                                             |
+| $$ \Phi $$          | post-activation feature map                                             |
+| $$ F $$          | aggregated feature map                                             |
+| $$ F' $$          | output post convolution, pre-MLP in a CNN                                       |
+| $$ r $$          | residual stream                                      |
+| $$ W_Q $$          | query weight matrix                                               |
+| $$ W_K $$          | key weight matrix                                               |
+| $$ W_V $$          | value weight matrix                                               |
+| $$ W_{QK} $$          | query-key weight matrix                                               |
+| $$ W_E $$          | embedding weight matrix                                               |
+| $$ W_U $$          | unembedding weight matrix                                               |
+| $$ m(\theta; X) $$  | a model defined on some set of parameters with inputs x        |
+| $$ \mathcal{L} $$| loss function                                     |
 
+---
 
-
-[^a]: This is a fairly narrow definition for what constitutes machine learning, lending itself more easily to (semi-)supervised machine learning problems. This is not the only way in which machines can "learn"; it is, however, the dominant paradigm that can be used to trace major milestones in ML. 
+[^a]: This implies a fairly narrow definition for what constitutes machine learning, lending itself more easily to (semi-)supervised machine learning problems. This is not the only way in which machines can "learn"; it is, however, one of the dominant paradigms that can be used to trace major milestones in ML.
 [^b]: Logistic models are typically reserved for classification tasks.
-[^c]: Note here that I use the language "embedding/unembedding" rather than "encoding/decoding." This is to avoid misleading jargon, as encoder-only, decoder-only, and encoder-decoder models all do this embedding/unembedding; the models are rather split based on whether/how masking is applied during multihead attention. Decoders use autoregressive masking, while encoders do not. This makes the former particular well-suited for generative tasks, while the latter is likely better for learning latent representations of the data. 
+[^c]: Note here that I use the language "embedding/unembedding" rather than "encoding/decoding." This is to avoid misleading jargon, as encoder-only, decoder-only, and encoder-decoder models all do this embedding/unembedding. The encoder/decoder typology is rather split based on whether/how masking is applied during multihead attention. Decoders use autoregressive masking, while encoders do not. This makes the former particular well-suited for generative tasks, while the latter is likely better for learning latent representations of the data. 
 [^d]: While this might make the math easier to digest, it could also change the way we count learnable parameters.
+[^e]: Although accurate, this is an unfortunately complex way to describe how a feature map is generated in just one sentence. The added depth and composition of operations makes it increasingly difficult to succintly describe components of the model in terms of the original input. 
