@@ -10,22 +10,22 @@ style:
 
 ---
 ### Introduction
-Training a modern ML model[^a] typically involves four main components: a model architecture, a loss function, an optimizer, and a dataset.
+Training a modern deep learning model[^a] typically involves four main components: a model architecture, a loss function, an optimizer, and a dataset.
 A few quick points:
-1. Parameters are what a machine actually learns. 
+1. Parameters are what a machine is learning in "machine learning". 
 2. Model architectures control how parameters interact with one another. 
 3. Loss functions define how we evaluate model performance on our objective.
 4. Optimizers control how we update the parameters in response to loss function feedback. 
 5. Our target behavior (i.e. objective) and data inform the design of each of the above.  
 
-This post is focused on **model architectures**---specifically, developing mathematical intuitions for modern model architectures. 
+This post is focused on **model architectures**---specifically, developing mathematical intuitions for modern deep learning. 
 Below, I 
 mathematically formulate increasingly complex models, starting with linear regression and building to today's transformer-based
 paradigm. 
 
 **Note**: *this post is not exhaustive.* I have identified what I understand to be the main paradigms contributing to current,
 transformer-based approaches. Notable exclusions from the zoo of ML models 
-include SVMs, RNNs, LSTMs, RL methods, Bayesian models, GANs, VAEs, and KANs. 
+include SVMs, RNNs, LSTMs[^f], RL methods, Bayesian models, GANs, VAEs, and KANs.
 
 For any questions regarding notation, please see the [notation](#notation) section at the bottom. 
 
@@ -152,7 +152,7 @@ The feature extractor starts by learning a set of feature maps. To generate a fe
 and perform element-wise matrix multiplication. We call one of these sliding matrices a filter or kernel, while where/how we move the filter around
 the input is controlled by its padding and stride-length. Each time we convolve a filter with the input, we obtain a new matrix, whose elements 
 are summed and used to populate the feature map. Feature maps are therefore matrices whose entries correspond to the summed entries of matrices obtained
-from convolving the filter with different subsections of the input[^e]. 
+from convolving the filter with different subsections of the input[^e]. For simplicity, we assume a stride-length of one and zero padding. 
 
 $$
 \begin{align*}
@@ -285,8 +285,8 @@ $$
 
 Depending on the pre-training objective (e.g. masked language modeling, next-token prediction, knowledge representation etc.) 
 and model design choices, there are additional nuances regarding multi-head attention. For instance, encoder and decoder models differ in 
-how the softmax activation is applied (with/without autoregressive masking), while some may also choose to directly add the output of each 
-attention head to the residual stream rather than concatenating and re-weighting, while some schema apply an additional re-weighting to each 
+how the softmax activation is applied (with/without autoregressive masking); some may choose to directly add the output of each 
+attention head to the residual stream rather than concatenating and re-weighting; some schema may even apply an additional re-weighting to each 
 head pre-concatenation. These nuances aside, the core flow remains the same. 
 
 The **MLP layer** is exactly as described [above](#deep-neural-network): a stack of linear layers separated by nonlinear activations. 
@@ -317,6 +317,15 @@ T(x) &= W_Ur^{(n)}
 $$
 
 where $$ T(x) $$ denotes the output from a single, generic transformer block. Transformer based models typically stack many of these blocks in sequence, while reserving the majority ($$ \approx \frac{5}{6} $$) of learnable parameters for MLPs, with the remaining parameters ($$\approx \frac{1}{6}$$) reserved for attention. Barring some design choices bespoke to the target objective, as well as some additional performance considerations (e.g. normalization layers, parallelization), that's all there is to it.
+
+# Concluding Thoughts
+
+You may have heard fundamental models described as a big stack of matrix multiplication and linear algebra. Now, you have also *seen* the core architectural block of fundamental models---the transformer---described as a big stack of matrix multiplcation and linear algebra. Beyond this big stack of matrices, here's what's actually exciting about reducing models down to this level of mathematical granularity: we can build a better understanding of *how the hell models actually work*. For instance, we can 
+- use insights from knot theory and differentiable manifolds to conceptualize models as untangling knots. Read more [here.](https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)
+- use insights from sparse coding and information compression to recover seemingly interpretable features from compressed representations. Read more [here.](https://transformer-circuits.pub/2023/monosemantic-features)
+- use insights from numerical optimization and numerical stability to visualize model internals. Read more [here.](https://distill.pub/2021/multimodal-neurons/)
+
+These are just a few of my favorites, but there's no shortage of ways in which mathematics can be used to enhance our ability to design, train, and understand sophisticated models. And it all starts with a big stack of linear algebra. 
 
 ---
 
@@ -362,3 +371,5 @@ where $$ T(x) $$ denotes the output from a single, generic transformer block. Tr
 [^c]: Note here that I use the language "embedding/unembedding" rather than "encoding/decoding." This is to avoid misleading jargon, as encoder-only, decoder-only, and encoder-decoder models all do this embedding/unembedding. The encoder/decoder typology is rather split based on whether/how masking is applied during multihead attention. Decoders use autoregressive masking, while encoders do not. This makes the former particular well-suited for generative tasks, while the latter is likely better for learning latent representations of the data. 
 [^d]: While this might make the math easier to digest, it could also change the way we count parameters. Given that most AI safety frameworks and responsible scaling policies use parameter and flop counts as a proxy for model capability, this quickly becomes relevant to technical AI governance. 
 [^e]: Although accurate, this is an unfortunately complex way to describe how a feature map is generated in just one sentence. The added depth and composition of operations makes it increasingly difficult to succintly describe components of the model in terms of the original input. 
+[^f]: In particular, RNNs and LSTMs arguably deserve to be in this post, as they were critical to the development of modeling sequential data with neural networks. They are intentionally ommitted, as I believe a separate post dedicated purely to advancements in modeling sequential data is prudent (i.e. time-series data, language data, etc.). 
+
