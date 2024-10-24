@@ -10,7 +10,7 @@ layout: default
     {% for post in site.posts %}
         <div class="blogPostContainer">
             <a href="{{ post.url }}" class="blogPostFeatImg" style="background-image: url('{{ site.baseurl }}{{ site.pathToBlogImgBin }}{{ post.featImg }}');"></a>
-            <a href="" class="blogCategory">{{ post.categories }}</a>
+            <a href="" class="blogCategory">{{ post.categories | join: ' '}}</a>
             <a href="{{ post.url }}" class="blogTitle">{{ post.title }}</a>
             <p class="blogExcerpt">{{ post.excerpt }}</p>
         </div>

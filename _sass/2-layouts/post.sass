@@ -42,3 +42,30 @@ p
 .footnotes
     p, li::marker
         font-size: 0.8em
+
+table
+    padding-bottom: 20px
+    tbody
+        tr
+            td
+                padding-left: 30px
+
+ul
+    margin: 0
+    padding: 0px 0px 10px 30px
+    font-family: "Open Sans", Arial, sans-serif
+    li
+        font-weight: 400
+        padding-bottom: 3px
+        color: $primary
+        a
+            font-weight: 600
+            color: $highlight
+            transition: all 0.15s ease-in-out
+            &:hover
+                color: $secondary
+
+    li::marker
+        color: $secondary
+
+    
