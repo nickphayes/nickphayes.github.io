@@ -1,9 +1,15 @@
 ---
 layout: post
-title: "Landscape of AI Safety and AI Governance"
+title: "A Primer on AI Safety and Governance"
 categories: "AI Safety and Governance"
 featImg: neuralnetwork.png
-excerpt: "Motivating the need for reliable, secure, and trustworthy AI"
+excerpt: "The article I wish I had when starting out in AI"
 permalink: "landscape-of-ai-safety"
 style: 
 ---
+
+### Who is this for
+ 
+
+---
+
