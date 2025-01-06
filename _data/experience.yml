@@ -1,3 +1,13 @@
+- company: "MITRE"
+  title: "AI Research Engineer (current)"
+  description: >
+    Working on the Trustworthy and Secure AI team at MITRE Labs. 
+    MITRE is a public interest nonprofit that operates federally funded R&D centers.
+    My team works with all branches of the US government to ensure that AI risk is 
+    appropriately managed when models are used in high-stakes scenarios. If the USG is going to 
+    use AI models for climate modeling / legal analysis / airport security / cybersecurity / etc., 
+    we need those models to be safe, reliable, and robust. 
+
 - company: "Center for Advanced Defense Studies"
   title: "Data Scientist"
   description: >
