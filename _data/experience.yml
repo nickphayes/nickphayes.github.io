@@ -3,10 +3,10 @@
   description: >
     Working on the Trustworthy and Secure AI team at MITRE Labs. 
     MITRE is a public interest nonprofit that operates federally funded R&D centers.
-    My team works with all branches of the US government to ensure that AI risk is 
-    appropriately managed when models are used in high-stakes scenarios. If the USG is going to 
-    use AI models for climate modeling / legal analysis / airport security / cybersecurity / etc., 
-    we need those models to be safe, reliable, and robust. 
+    My team works with the US government to ensure that AI risk is 
+    appropriately managed when models are used in high-stakes scenarios. I focus 
+    on red-teaming and AI security, frequently drawing on ideas from AI Safety.  
+  tech_stack: "Python, Docker, Kubernetes"
 
 - company: "Center for Advanced Defense Studies"
   title: "Data Scientist"
@@ -32,7 +32,7 @@
   title: "Swahili Translator"
   description: >
     Translated an 85 page legal document from English to Swahili for Lawyers without Borders. 
-    Ongoing pro-bono translations as needed.  
+    Ongoing pro-bono translations as needed. 
 
 - company: "US Department of State"
   title: "Data Science Intern"
@@ -47,10 +47,10 @@
     Contracted to translate search queries and evaluate translation accuracy of Tanzanian media. My
     favorite mistranslation: "uwanja wa ndege" (airport) translated as "field of birds." 
 
-- company: "DORCAS"
+- company: "DORCAS Tanzania"
   title: "Project Management Intern"
   description: >
-    Translated grant propopsals (Swahili/English, occasionally Dutch) and conducted field
+    Translated grant proposals (Swahili/English, occasionally Dutch) and conducted field
     interviews with program beneficiaries in Swahili. Drank copious amounts of tea and never
     learned how not to burn my tongue. 
 
