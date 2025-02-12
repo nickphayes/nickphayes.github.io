@@ -2,7 +2,7 @@
 layout: post
 title: "The Parlance of AI Safety, Ethics, and Governance"
 categories: "AI"
-featImg: neuralnetwork.png
+featImg: wordsoupv2.png
 excerpt: "Providing a glossary of terms to better understand the field"
 permalink: "parlance-of-ai-safety"
 style: 
@@ -10,8 +10,8 @@ style:
 
 ---
 ### Introduction
-Think of this post as a living collection of operational concepts. 
-It is not a typology, nor a source of exacting definitions; rather, it is an overview of key terminology and research agendas
+Think of this post as a living collection of operational definitions. 
+It is not a typology, nor a source of exacting and prescriptive terminology; rather, it is an overview of key jargon and research agendas
 popular at the time of writing. I intend to edit and update periodically as the field evolves. 
 
 [last update: 12/2024]. 
