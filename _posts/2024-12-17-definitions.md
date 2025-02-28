@@ -28,7 +28,7 @@ popular at the time of writing. I intend to edit and update periodically as the 
 
 **General Purpose Technology (GPT)**: The classic examples of GPTs[^b] are electricity and the Internet. Both of these technologies dramatically transformed society given their multifaceted and widespread usage. Historians and political scientists with expertise in historical technological innovations tend to categorize AI as a GPT, possibly with never-before-seen potential to transform society. This is precisely why it is of concern to many. 
 
-**Frontier AI**: Frontier AI refers to future-learning capabilities of the model(s) that are currently the most powerful---i.e. those at the frontier. Accordingly, *frontier safety* focuses on anticipating the new risks introduced by the next generation of model capabilities.   
+**Frontier AI**: Frontier AI refers to future-leaning capabilities of the model(s) that are currently the most powerful---i.e. those at the frontier. Accordingly, *frontier safety* focuses on anticipating the new risks introduced by the next generation of model capabilities.   
 
 **AI X-risk/Catastrophic Risk**: AI existential risk (X-risk) and catastrophic risk refer to the possibility that AI could cause human extinction or, at the very least, cause large-scale catastrophe. Among other examples, some hypothesize that powerful AI could lead to biological attacks, financial meltdowns, autocratic dictatorships, conflict escalation, uncontrolled climate change, and psychological manipulation, ultimately threatening the welfare of the human race. 
 
