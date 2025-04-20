@@ -1,11 +1,11 @@
 - company: "MITRE"
   title: "AI Research Engineer (current)"
   description: >
-    Working on the Trustworthy and Secure AI team at MITRE Labs. 
-    MITRE is a public interest nonprofit that operates federally funded R&D centers.
-    My team works with the US government to ensure that AI risk is 
-    appropriately managed when models are used in high-stakes scenarios. I focus 
-    on red-teaming and AI security, frequently drawing on ideas from AI Safety.  
+    Working on the Trustworthy and Secure AI team at MITRE Labs, 
+    with a focus on red-teaming and AI security. My work ranges
+    from advising the government on technical AI governance, to 
+    researching, developing, and evaluating state of the art
+    systems for safe and secure AI. 
   tech_stack: "Python, Docker, Kubernetes"
 
 - company: "Center for Advanced Defense Studies"

@@ -3,7 +3,7 @@ layout: post
 title: "The Parlance of AI Safety, Ethics, and Governance"
 categories: "AI"
 featImg: wordsoupv2.png
-excerpt: "Providing a glossary of terms to better understand the field"
+excerpt: "A glossary of terms for better understanding the field"
 permalink: "parlance-of-ai-safety"
 style: 
 ---
@@ -14,19 +14,19 @@ Think of this post as a living collection of operational definitions.
 It is not a typology, nor a source of exacting and prescriptive terminology; rather, it is an overview of key jargon and research agendas
 popular at the time of writing. I intend to edit and update periodically as the field evolves. 
 
-[last update: 12/2024]. 
+[last update: 04/2025]. 
 
 ---
 
 **AI**: In general, AI refers to the ability of a machine to perform a task typically reserved for humans. Its modern usage usually refers more explicitly to machine learning and/or reinforcement learning, with an emphasis on the capacity to learn and solve complex problems. 
 
-**Foundational Models**: Foundational models are large, multimodal, general-purpose models trained on massive datasets. Some pieces of legislation use a compute threshold to categorize models as "foundational," but this compute-based delineation lacks consensus. Due to their scale, only a handful of companies are in the business of developing foundational models. 
+**Foundational Models**: Foundational models are large, multimodal, general-purpose models trained on massive datasets. Some pieces of legislation use a compute threshold to categorize models as "foundational," but this compute-based delineation lacks consensus. Due to the infrastructure typically required to build foundational models, only a handful of companies are in the business of developing foundational models. 
 
-**AGI**: Artifical general intelligence (AGI) is a bit of a nebulous term. It describes an AI system that performs at the level of human intelligence across all (or most) tasks. In some domains, we have arguably achieved or exceeded human level intelligence (e.g. translating languages), but full-scale, general-purpose AGI has yet to be developed. 
+**AGI**: Artifical general intelligence (AGI) is a nebulous term. Many people in the field either avoid it altogether, or use it sparingly alongside various hedges acknowledging its lack of stringent definition. Generally, it describes an AI system that performs at the level of human intelligence across all (or most) tasks. In some domains, we have arguably achieved or exceeded human level intelligence (e.g. translating languages), but full-scale, general-purpose AGI has yet to be developed. 
 
 **Superintelligence**: Superintelligence is the next step up from AGI, describing an AI system that outperforms human intelligence. AGI/Superintelligent AI are the main source of apprehension regarding catastrophic risk from AI. 
 
-**General Purpose Technology (GPT)**: The classic examples of GPTs[^b] are electricity and the Internet. Both of these technologies dramatically transformed society given their multifaceted and widespread usage. Historians and political scientists with expertise in historical technological innovations tend to categorize AI as a GPT, possibly with never-before-seen potential to transform society. This is precisely why it is of concern to many. 
+**General Purpose Technology (GPT)**: The classic examples of GPTs[^b] are electricity and the Internet. Both of these technologies dramatically transformed society given their multifaceted and widespread usage. Many historians, computer scientists, and political scientists tend to categorize AI as a GPT, possibly with never-before-seen potential to transform society.
 
 **Frontier AI**: Frontier AI refers to future-leaning capabilities of the model(s) that are currently the most powerful---i.e. those at the frontier. Accordingly, *frontier safety* focuses on anticipating the new risks introduced by the next generation of model capabilities.   
 

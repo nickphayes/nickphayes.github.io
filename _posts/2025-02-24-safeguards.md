@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Explainer: Tamper-Resistant Safeguards"
+title: "Tamper-Resistant Safeguards (Explainer)"
 categories: "AI"
 featImg: safeguard_flowchart.png
-excerpt: "Summarizing and explaining a technical AI safety paper"
+excerpt: "A summary of a recent AI safety paper"
 permalink: "explainer-tamper-resistant-safeguards"
 style: 
 ---
@@ -14,7 +14,7 @@ This post summarizes and explains the main contributions of a recent technical r
 
 ---
 # Motivating Problem
-The release of Deepseek-R1 didn’t just stoke the fire of the open-/closed-weight model debate; it poured gasoline directly on the flames. In light of this, as well as the reality that open-weight models don’t appear to be going away anytime soon, let’s dive into an exciting technical paper that introduces a new method for developing open-weight model safeguards. 
+The release of Deepseek-R1 didn’t just stoke the fire of the open-/closed-weight model debate; it poured gasoline directly on the flames. In light of this, as well as the reality that open-weight models don’t appear to be going away anytime soon, here's a review of a recent technical paper that introduces a new method for developing open-weight model safeguards. 
 
 For open-weight models, the task of removing safeguards has historically been trivial. In an ideal world, safeguards would be 1) tamper-resistant and 2) performance-preserving. The former quality would ensure that adversarial actors are unable to circumvent safeguards, while the latter would ensure that we reap the full benefits of a model’s capabilities. This naturally leads us to the question that the paper seeks to answer: how can we develop tamper-resistant, performance-preserving safeguards for open-weight LLMs?
 
@@ -23,7 +23,7 @@ The central contribution of the paper is a method for developing better safeguar
 
 ![Algorithm Pseudocode](../assets/img/blog/safeguard_algorithm.png){:class="pseudocode-image"}
 
-The algorithm starts by obtaining the weights of a model after an initial safeguard has been applied. Similar to meta-learning, the next phase can be broken down into an inner- and outer-loop. In the inner-loop, the authors simulate adversarial supervised fine-tuning (SFT) attacks and accumulate loss into a “tamper-resistance” gradient term. We can think of this as letting an ensemble of adversaries try to break a safeguard, observing the direction in which they would make model updates to do so, and storing this information for later. In the outer loop, we accumulate both standard language modeling loss and a representation loss into a “retain” gradient term. We can think of this as the portion of the algorithm that prevents performance degradation, both in terms of capabilities and internal representations. The model parameters are then updated using a weighted sum of both the tamper-resistance and retain gradient. Rinse and repeat for your desired number of outer steps, and (in theory) there you have it: an ideal safeguard. 
+The algorithm starts by obtaining the weights of a model after an initial safeguard has been applied. Similar to meta-learning, the next phase can be broken down into an inner- and outer-loop. In the inner-loop, the authors simulate adversarial supervised fine-tuning (SFT) attacks and accumulate loss into a “tamper-resistance” gradient term. We can think of this as letting an ensemble of adversaries try to break a safeguard, observing the direction in which they would make model updates to allow this behavior, and storing this information for later. In the outer loop, we accumulate both standard language modeling loss and a representation loss into a “retain” gradient term. We can think of this as the portion of the algorithm that prevents performance degradation, both in terms of capabilities and internal representations. The model parameters are then updated using a weighted sum of both the tamper-resistance and retain gradient. Rinse and repeat for your desired number of outer steps, and (in theory) there you have it: an ideal safeguard. 
 
 At first-glance, the algorithm appears to address both of our desired qualities for safeguards. It explicitly trains for tamper-resistance in the inner-loop, while optimizing for performance in the outer-loop. The question is, does it actually work? The answer: sorta! 
 
@@ -35,4 +35,4 @@ Among the paper’s greatest strengths is its adversarial threat modeling. When 
 Despite these efforts to cover diverse real-world scenarios, the paper naturally comes with limitations. Methodologically, TAR helps develop tamper-resistance to a particular kind of attack (SFT), but does not address the full spectrum of attack vectors (e.g. input-based jailbreaking attacks). Moreover, as with most AI safety work, evaluations/metrics only serve as a proxy for how we might expect a model to behave post-deployment. Though the metrics of choice and safeguard objectives are well-justified and show promise, they may be insufficient to indicate true alignment. 
 
 # Takeaway
-In the final paragraph, the paper’s authors acknowledge the main merits of this work; while the TAR method is not a technical panacea for open-weight tamper-resistance, it does provide promising evidence of the tractability of this problem, while simultaneously emphasizing the need to mitigate the risks of malicious misuse. As frontier AI companies continue to release open-weight models, this flavor of work will only become more and more important.
+In the final paragraph, the paper’s authors acknowledge the main merits of this work; while the TAR method is not a technical panacea for open-weight tamper-resistance, it does provide promising evidence of the tractability of this problem, while simultaneously emphasizing the need to mitigate the risks of malicious misuse. As frontier AI companies continue to release open-weight models, this flavor of work will become increasingly important.
