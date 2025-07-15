@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tamper-Resistant Safeguards (Explainer)"
+title: "Tamper-Resistant Safeguards"
 categories: "AI"
 featImg: safeguard_flowchart.png
 excerpt: "A summary of a recent AI safety paper"
