@@ -4,7 +4,7 @@ title: "Tamper-Resistant Safeguards"
 categories: "AI"
 featImg: safeguard_flowchart.png
 excerpt: "A summary of a recent AI safety paper"
-permalink: "explainer-tamper-resistant-safeguards"
+permalink: "tamper-resistant-safeguards-summary"
 style: 
 ---
 
