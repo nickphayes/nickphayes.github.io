@@ -1,5 +1,10 @@
 - category: "Mathematics"
   papers:
+    - title: "Edge Rewiring for Network Turing Patterns"
+      authors: "Nicholas Hayes"
+      venue: "2026 Chaos: An Interdisciplinary Journal of Nonlinear Science"
+      pdf: "assets/pdfs/chaos_accepted_manuscript.pdf"
+      image: "assets/img/publications/rewired_net2.png"
     - title: "Topology Mediated Network Turing Patterns"
       authors: "Nicholas Hayes"
       venue: "My master's dissertation; awarded high distinction"
