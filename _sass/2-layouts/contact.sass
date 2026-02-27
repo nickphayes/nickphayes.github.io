@@ -1,11 +1,88 @@
+// Contact page
 .contact-container
-    position: relative
     display: flex
-    align-items: center
     justify-content: center
-    padding-top: 500px
-    padding-bottom: 500px
-    h3
-        font-weight: 200
-        text-transform: uppercase
-        letter-spacing: 2px
+    align-items: flex-start
+    padding: 120px 20px 100px 20px
+    min-height: 80vh
+
+.contact-form-wrapper
+    width: 100%
+    max-width: 560px
+
+    .form-group
+        display: flex
+        flex-direction: column
+        margin-bottom: 20px
+
+        label
+            font-size: 0.85em
+            font-weight: 500
+            color: $secondary
+            letter-spacing: 0.04em
+            text-transform: uppercase
+            margin-bottom: 6px
+
+        input,
+        textarea
+            font-family: $font-stack-two
+            font-size: 1em
+            font-weight: 300
+            color: $primary
+            background-color: $white
+            border: 1px solid #b0b6c8
+            border-radius: 4px
+            padding: 10px 14px
+            outline: none
+            transition: border-color 0.15s ease-in-out
+            width: 100%
+            box-sizing: border-box
+
+            &:focus
+                border-color: $secondary
+
+        textarea
+            resize: vertical
+            min-height: 140px
+            line-height: 1.5
+
+    .contact-submit
+        display: inline-block
+        margin-top: 8px
+        padding: 11px 28px
+        background-color: $white
+        color: $primary
+        font-family: $font-stack
+        font-size: 0.9em
+        font-weight: 400
+        letter-spacing: 0.04em
+        border: 2px solid $highlight
+        border-radius: 4px
+        cursor: pointer
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out
+
+        &:hover
+            background-color: $highlight
+            color: $primary
+
+        &:disabled
+            opacity: 0.5
+            cursor: not-allowed
+
+    .form-feedback
+        display: none
+        margin-top: 20px
+        padding: 12px 16px
+        border-radius: 4px
+        font-size: 0.9em
+        font-weight: 400
+
+    .form-success
+        background-color: #d6eef9
+        color: $primary
+        border: 1px solid $secondary
+
+    .form-error
+        background-color: #fde8cc
+        color: $primary
+        border: 1px solid $highlight
