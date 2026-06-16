@@ -1,3 +1,11 @@
+- category: "AI Safety"
+  papers:
+    - title: "When Agents Talk: Discourse, Manipulation, and Risk in an Agentic Social Network"
+      authors: "10a Labs: Grace Cheong, Violet Davis, Juliette Garcia, Kendal Gee, Molly Hart, Nicholas Hayes, Henry Houghton, Kyle Lee, Paige Lee, Vicky Lee, Hailey May, Bobby McKenzie, Christine McNeill, Han Nguyen, Brooke Perreault, David Pham, Charlie Plumb, Olivia Quill, Matthew Swain, Grace Wang, Adam Warren, Corie Wieland, Zachary Yahn"
+      venue: "2026 arXiv"
+      pdf: "assets/pdfs/moltbook.pdf"
+      image: "assets/img/publications/moltbook.png"
+
 - category: "Mathematics"
   papers:
     - title: "Edge Rewiring for Network Turing Patterns"
@@ -7,18 +15,18 @@
       image: "assets/img/publications/rewired_net2.png"
     - title: "Topology Mediated Network Turing Patterns"
       authors: "Nicholas Hayes"
-      venue: "My master's dissertation; awarded high distinction"
+      venue: "2024 master's dissertation; awarded high distinction"
       pdf: "assets/pdfs/dissertation.pdf"
       image: "/assets/img/publications/fish.png"
       blogpost: "zebra-stripes-brains-and-patchy-habitats"
     - title: "Monotonous Monotonicity: Activation Functions in Graph Attention Mechanisms"
       authors: "Nicholas Hayes"
-      venue: "Venue TBD. A course paper with possible extension."
+      venue: "2024 working paper"
       pdf: "assets/pdfs/theories_of_deep_learning.pdf"
       image: "/assets/img/publications/dynamic_extraction.png"
     - title: "The East African Climate Paradox"
       authors: "Nicholas Hayes"
-      venue: "Venue TBD. A course paper with possible extension."
+      venue: "2024 working paper"
       pdf: "assets/pdfs/climate_paradox.pdf"
       image: "/assets/img/publications/east_africa_region.png"
 

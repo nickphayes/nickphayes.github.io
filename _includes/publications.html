@@ -14,7 +14,7 @@
                     <!-- Publication details -->
                     <div class="publication-info">
                         <h4>{{ paper.title }}</h4>
-                        <p>{{ paper.authors }}</p>
+                        <p>{{ paper.authors | replace: "Nicholas Hayes", "<strong>Nicholas Hayes</strong>" }}</p>
                         <p>{{ paper.venue }}</p>
                         <div class="pub-buttons">
                             <a href="{{ paper.pdf }}" target="_blank" rel="noreferrer noopener" class="btn">PDF</a>
