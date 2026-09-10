@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tamper-Resistant Safeguards"
-categories: "AI"
+categories: "AI Safety"
 featImg: safeguard_flowchart.png
 excerpt: "A summary of a recent AI safety paper"
 permalink: "tamper-resistant-safeguards-summary"
