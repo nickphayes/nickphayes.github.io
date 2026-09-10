@@ -24,7 +24,7 @@ where $$\mathcal{L}_A$$ measures how policy-violating the response is. The defen
 
 $$\min_\theta \mathcal{L}_D(\theta) \quad \text{subject to} \quad \mathcal{L}_A(f_\theta(p^*(\theta))) \leq \epsilon$$
 
-This constraint is where things become diffiuclt; the attacker's best response $$p^*$$ is itself a function of $$\theta$$. Defending against a static attack distribution is an engineering problem, while defending against an adversary who adapts to your defense is a game.
+This constraint is where things become difficult; the attacker's best response $$p^*$$ is itself a function of $$\theta$$. Defending against a static attack distribution is an engineering problem, while defending against an adversary who adapts to your defense is a game.
 
 <!-- ![Stackelberg game tree: defender chooses θ at root; only the realized θ's attacker subtree is active, branching over an effectively unbounded prompt space (shown with ellipses) toward the highlighted terminal node p*](../assets/img/blog/red-teaming-game-tree.png){:class="pattern-examples"} -->
 
@@ -36,13 +36,13 @@ To see why this works in practice, consider the size of the attack surface. The 
 
 More precisely: let $$\mathcal{P}^* \subseteq \mathcal{P}$$ be the set of jailbreaking prompts. A red-team with budget $$n$$ can only certify that $$\mathcal{P}^* \cap S = \emptyset$$ for the sampled set $$S$$, where $$\lvert S \rvert = n$$. That says nothing about $$\mathcal{P}^* \setminus S$$.
 
-The question that actually matters: *what is the structure of $$\mathcal{P}^*$$?* If jailbreaks are isolated points scattered through a high-dimensional space, exhaustive sampling might get you somewhere. But if they form connected manifolds — and empirical evidence strongly suggests they do — then patching one jailbreak leaves an entire neighborhood intact.
+So, *what is the structure of $$\mathcal{P}^*$$?* If jailbreaks are isolated points scattered through a high-dimensional space, exhaustive sampling might get you somewhere. But if they form connected manifolds (and empirical evidence strongly suggests they do) then patching one jailbreak leaves an entire neighborhood intact.
 <!-- 
 ![Schematic of prompt space P as a 2D projection. Safe region shaded blue, jailbreak manifold P* in orange. Two rounds of red-team samples (dots, diamonds) both miss the manifold entirely.](../assets/img/blog/red-teaming-manifold.png){:class="pattern-examples"} -->
 
 ## The Defender's Dilemma
 
-The Stackelberg formulation exposes an asymmetry that finite red-teaming cannot paper over.
+The Stackelberg formulation exposes an asymmetry that finite red-teaming cannot ignore.
 
 The attacker needs to find *one* policy-violating prompt. The defender needs to prevent *all* of them. In security terms: the attacker wins on a single point in $$\mathcal{P}^*$$; the defender wins only if $$\mathcal{P}^* = \emptyset$$. These are not symmetric burdens. The attacker's problem is a search problem. The defender's is a coverage problem over an infinite space.
 
@@ -66,9 +66,7 @@ If we accept the Stackelberg framing, a few things follow.
 
 **The Stackelberg structure tells you what training loop to run.** If the attacker always best-responds to the deployed model, the defender's training should include that best response. This is exactly what adversarial fine-tuning and tamper-resistant training[^4] attempt — simulate the attacker's move during training, not after deployment.
 
-None of this makes the problem tractable. Solving the minimax problem exactly is computationally out of reach for the same reasons that make the attack space vast. But framing the problem correctly is a prerequisite for making progress. Expecting a finite red-team to certify safety isn't just optimistic — it's asking the wrong question entirely.
-
-The right question is how much it costs to find a violation, and how much that number shifts with the release of increasingly sophisticated dual-use models. 
+None of this makes the problem tractable. Solving the minimax problem exactly is computationally out of reach for the same reasons that make the attack space vast. The right question is how much it costs to find a violation, and how much that number shifts with the release of increasingly sophisticated dual-use models. 
 
 ---
 
