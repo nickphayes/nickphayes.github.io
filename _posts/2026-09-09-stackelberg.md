@@ -64,7 +64,7 @@ If we accept the Stackelberg framing, a few things follow.
 
 **Defenses should be evaluated on their effect on $$n^*$$, not on pass/fail.** A defense that makes jailbreaking 1000x harder is real progress, even if jailbreaking remains technically possible. The field needs metrics that reflect this. Pass/fail invites a false precision: "no attacks found in 10,000 tries" sounds rigorous and isn't.
 
-**The Stackelberg structure tells you what training loop to run.** If the attacker always best-responds to the deployed model, the defender's training should include that best response. This is exactly what adversarial fine-tuning and tamper-resistant training[^4] attempt — simulate the attacker's move during training, not after deployment.
+**The Stackelberg structure tells you what training loop to run.** If the attacker always best-responds to the deployed model, the defender's training should include that best response. This is exactly what adversarial fine-tuning and tamper-resistant training attempt — simulate the attacker's move during training, not after deployment.
 
 None of this makes the problem tractable. Solving the minimax problem exactly is computationally out of reach for the same reasons that make the attack space vast. The right question is how much it costs to find a violation, and how much that number shifts with the release of increasingly sophisticated dual-use models. 
 
