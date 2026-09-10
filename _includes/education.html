@@ -1,0 +1,10 @@
+<div class="education-grid">
+    {% for edu in site.data.education %}
+    <div class="education-card">
+        <span class="mono-tag">{{ edu.degree }}</span>
+        <h4>{{ edu.institution }}</h4>
+        <p class="education-detail">{{ edu.detail }}</p>
+        <p class="education-honor">{{ edu.honor }}</p>
+    </div>
+    {% endfor %}
+</div>
