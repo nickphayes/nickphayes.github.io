@@ -1,11 +1,3 @@
-- category: "AI Safety"
-  papers:
-    - title: "When Agents Talk: Discourse, Manipulation, and Risk in an Agentic Social Network"
-      authors: "10a Labs: Grace Cheong, Violet Davis, Juliette Garcia, Kendal Gee, Molly Hart, Nicholas Hayes, Henry Houghton, Kyle Lee, Paige Lee, Vicky Lee, Hailey May, Bobby McKenzie, Christine McNeill, Han Nguyen, Brooke Perreault, David Pham, Charlie Plumb, Olivia Quill, Matthew Swain, Grace Wang, Adam Warren, Corie Wieland, Zachary Yahn"
-      venue: "2026 arXiv"
-      pdf: "assets/pdfs/moltbook.pdf"
-      image: "assets/img/publications/moltbook.png"
-
 - category: "Mathematics"
   papers:
     - title: "Edge Rewiring for Network Turing Patterns"
@@ -43,3 +35,11 @@
       venue: "2022 Corpora"
       pdf: "assets/pdfs/debates.pdf"
       image: "/assets/img/publications/hummingbird.jpg"
+
+- category: "AI Safety"
+  papers:
+    - title: "When Agents Talk: Discourse, Manipulation, and Risk in an Agentic Social Network"
+      authors: "10a Labs: Grace Cheong, Violet Davis, Juliette Garcia, Kendal Gee, Molly Hart, Nicholas Hayes, Henry Houghton, Kyle Lee, Paige Lee, Vicky Lee, Hailey May, Bobby McKenzie, Christine McNeill, Han Nguyen, Brooke Perreault, David Pham, Charlie Plumb, Olivia Quill, Matthew Swain, Grace Wang, Adam Warren, Corie Wieland, Zachary Yahn"
+      venue: "2026 arXiv"
+      pdf: "assets/pdfs/moltbook.pdf"
+      image: "assets/img/publications/moltbook.png"

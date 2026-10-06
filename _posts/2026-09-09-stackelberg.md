@@ -52,19 +52,19 @@ $$V^* = \min_\theta \max_{p \in \mathcal{P}} \mathcal{L}_A(f_\theta(p))$$
 
 For current LLMs, there is substantial empirical evidence that $$V^* > 0$$ — that is, for any $$\theta$$, some adversarial prompt exists.[^3] If true, the Stackelberg equilibrium involves an attacker who always wins eventually. The question shifts from *can we prevent all attacks* to *how much effort should an attacker expend*.
 
-That reframing is actually useful. Rather than binary safety, it motivates a cost-based analysis: what is the minimum attacker effort $$n^*(\epsilon)$$ required to find a prompt achieving loss $$\geq \epsilon$$? A model that requires $$n^* = 10^{12}$$ queries to jailbreak is meaningfully safer than one requiring $$n^* = 10^3$$, even if neither is certifiably secure. The gap between those two numbers can be the gap between a theoretical vulnerability and a practical one.
+Rather than binary safety, it motivates a cost-based analysis: what is the minimum attacker effort $$n^*(\epsilon)$$ required to find a prompt achieving loss $$\geq \epsilon$$? A model that requires $$n^* = 10^{12}$$ queries to jailbreak is meaningfully safer than one requiring $$n^* = 10^3$$, even if neither is certifiably secure. The gap between those two numbers can be the gap between a theoretical vulnerability and a practical one.
 
 <!-- ![Plot of minimum attacker effort n*(ε) vs. violation threshold ε for three defense regimes. Higher and further right is better. Adversarial training (TAR) shifts the curve most dramatically.](../assets/img/blog/red-teaming-cost-curve.png){:class="pattern-examples"} -->
 
-## What This Changes
+## What Changes
 
 If we accept the Stackelberg framing, a few things follow.
 
-**Red-teaming should be adaptive, not exhaustive.** The goal of a red-team isn't to sample broadly from $$\mathcal{P}$$ — that's hopeless. It's to simulate the attacker's best response to the *current* defense. That means iterative red-teaming where attack strategies are updated based on what fails, not a single fixed evaluation battery run before launch and never revisited.
+**Red-teaming should be adaptive, not exhaustive.** The goal of a red-team isn't to sample broadly from $$\mathcal{P}$$. It's to simulate the attacker's best response to the *current* defense. That means iterative red-teaming where attack strategies are updated based on what fails, not a single fixed evaluation battery run before launch and never revisited.
 
-**Defenses should be evaluated on their effect on $$n^*$$, not on pass/fail.** A defense that makes jailbreaking 1000x harder is real progress, even if jailbreaking remains technically possible. The field needs metrics that reflect this. Pass/fail invites a false precision: "no attacks found in 10,000 tries" sounds rigorous and isn't.
+**Defenses should be evaluated on their effect on $$n^*$$, not on pass/fail.** A defense that makes jailbreaking 1000x harder moves the needle in the right direction, even if jailbreaking remains technically possible. The field needs metrics that reflect this. 
 
-**The Stackelberg structure tells you what training loop to run.** If the attacker always best-responds to the deployed model, the defender's training should include that best response. This is exactly what adversarial fine-tuning and tamper-resistant training attempt — simulate the attacker's move during training, not after deployment.
+**The Stackelberg structure tells you what training loop to run.** If the attacker always best-responds to the deployed model, the defender's training should include that best response. This is exactly what adversarial fine-tuning and tamper-resistant training attempt (i.e. simulating the attacker's move during training, not after deployment).
 
 None of this makes the problem tractable. Solving the minimax problem exactly is computationally out of reach for the same reasons that make the attack space vast. The right question is how much it costs to find a violation, and how much that number shifts with the release of increasingly sophisticated dual-use models. 
 
